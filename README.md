@@ -21,7 +21,7 @@ old-sdd is a set of markdown skills that teach your AI agent to brainstorm thoro
 ### GitHub Copilot CLI
 
 ```bash
-git clone https://github.com/<your-user>/old-sdd /tmp/old-sdd
+git clone https://github.com/shushakov-usa/old-sdd /tmp/old-sdd
 cp -r /tmp/old-sdd/copilot/skills/osd-* ~/.copilot/skills/
 mkdir -p ~/.copilot/old-sdd
 cp -r /tmp/old-sdd/shared ~/.copilot/old-sdd/shared
@@ -30,7 +30,7 @@ cp -r /tmp/old-sdd/shared ~/.copilot/old-sdd/shared
 ### Codex CLI
 
 ```bash
-git clone https://github.com/<your-user>/old-sdd /tmp/old-sdd
+git clone https://github.com/shushakov-usa/old-sdd /tmp/old-sdd
 cp -r /tmp/old-sdd/codex/skills/osd-* ~/.codex/skills/
 mkdir -p ~/.codex/old-sdd
 cp -r /tmp/old-sdd/shared ~/.codex/old-sdd/shared
