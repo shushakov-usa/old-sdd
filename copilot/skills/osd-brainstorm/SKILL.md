@@ -1,6 +1,6 @@
 ---
 name: osd-brainstorm
-description: "Interactive brainstorming with integrated research"
+description: "Use before committing to a spec — explore user needs, challenge assumptions, research options, and align on requirements"
 ---
 
 # osd-brainstorm

@@ -1,6 +1,6 @@
 ---
 name: osd-build
-description: "Full feature development: brainstorm → spec → plan → implement → validate"
+description: "Use for significant new features or major changes — runs full pipeline from brainstorming through implementation and validation"
 ---
 
 # osd-build

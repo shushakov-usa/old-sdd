@@ -1,6 +1,6 @@
 ---
 name: osd-spec
-description: "Write a specification document from brainstorming context"
+description: "Use when brainstorming is complete and you need to formalize decisions into a spec document"
 ---
 
 # osd-spec

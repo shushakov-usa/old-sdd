@@ -1,6 +1,6 @@
 ---
 name: osd-validate
-description: "Verify implementation quality and spec compliance"
+description: "Use when implementation is complete — runs tests, linter, type checks, and verifies spec compliance before shipping"
 ---
 
 # osd-validate

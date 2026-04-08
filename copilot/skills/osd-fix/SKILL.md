@@ -1,6 +1,6 @@
 ---
 name: osd-fix
-description: "Bug fix pipeline: understand → plan → implement → validate"
+description: "Use when a bug is reported or tests fail — investigates root cause, plans fix, implements with regression tests, and validates"
 ---
 
 # osd-fix

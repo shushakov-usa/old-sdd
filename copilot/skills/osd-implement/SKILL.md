@@ -1,6 +1,6 @@
 ---
 name: osd-implement
-description: "Execute a plan with parallel subagents"
+description: "Use when you have a written plan to execute — dispatches parallel subagents for each task wave with progress tracking"
 ---
 
 # osd-implement

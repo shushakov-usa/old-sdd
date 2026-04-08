@@ -1,6 +1,6 @@
 ---
 name: osd-plan
-description: "Break a spec into executable tasks with wave-based parallelism"
+description: "Use after you have a spec but before implementation — breaks requirements into executable waves with dependency tracking"
 ---
 
 # osd-plan
