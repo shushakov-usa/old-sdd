@@ -73,6 +73,20 @@ Choices:
 2. **"Write spec and go straight to work"** — Fast lane. Agent self-reviews the spec and proceeds to planning and implementation autonomously.
 3. **"I have more questions or feedback"** — Continue brainstorming.
 
+## Context Budget
+
+Brainstorming should use **no more than 30-40% of context**.
+
+- If the topic is huge, decompose into sub-topics. Brainstorm the first one; others become separate `/osd-build` cycles.
+- If you've asked 15+ questions and still don't have clarity, stop and summarize what you know vs. what's unclear. Let the user decide how to proceed.
+- Don't try to be exhaustive — be thorough on what matters most.
+
+## What Happens Next
+
+After brainstorming, the next step depends on context:
+- **In a `/osd-build` pipeline** → transition to spec phase automatically
+- **Standalone brainstorming** → suggest `/osd-spec` to formalize, or `/osd-build` to run full pipeline
+
 ## What This Phase Produces
 
 Nothing persisted to disk. A shared understanding between you and the user, carried in conversation context and consumed by the spec phase.

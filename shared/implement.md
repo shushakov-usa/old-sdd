@@ -80,3 +80,27 @@ During implementation:
 - Don't take shortcuts. If the "easy" solution is worse, do the right thing.
 - If you see a better approach than what the plan says, propose it.
 - Don't silently work around problems in the spec or plan.
+
+## Deviation Rules
+
+| Deviation | Action | Attempt Limit |
+|-----------|--------|---------------|
+| **Minor** — better implementation detail | Proceed, note in commit | — |
+| **Medium** — missing dependency or tool | Fix it, continue | 3 attempts |
+| **Major** — plan assumption was wrong | **STOP**, report to user | Immediate |
+| **Blocked** — can't proceed | **STOP** after 3 attempts | 3 attempts |
+
+After 3 failed fix attempts on any task: stop, report what's wrong, and let the user decide.
+
+## Context Budget
+
+Implementation consumes the most context because of subagent dispatch overhead. The orchestrator should:
+- Track task completion state concisely
+- Pass only relevant context to subagents (not full spec)
+- If 60%+ tasks done and context is pressured, commit progress and suggest re-invoking `/osd-implement`
+
+## What Happens Next
+
+After all tasks complete:
+- **In a `/osd-build` or `/osd-fix` pipeline** → transition to validate phase automatically
+- **Standalone** → suggest `/osd-validate` to verify

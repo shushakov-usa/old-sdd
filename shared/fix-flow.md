@@ -26,6 +26,17 @@ Use brainstorm-phase questioning, but focused on understanding the bug:
 
 This phase is lighter than feature brainstorming — fewer questions, more investigation.
 
+**Investigation discipline:**
+- Don't trust the user's diagnosis. Verify independently.
+- Don't guess. Gather evidence: logs, stack traces, reproduction steps.
+- Don't fix symptoms. Find the root cause.
+
+**Ready to fix?** All four must be YES:
+1. ☐ Understand the mechanism (why, not just that)
+2. ☐ Can reproduce reliably (or understand the trigger)
+3. ☐ Have evidence (observed, not guessing)
+4. ☐ Ruled out alternatives (this IS the cause)
+
 ### Phase 2: Plan
 
 Create a brief task list. This is ephemeral — it stays in agent context, not saved to disk.

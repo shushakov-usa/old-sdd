@@ -40,5 +40,5 @@ After the spec is committed, suggest:
 - `/osd-plan` to create an implementation plan
 - Or `/osd-build` to continue the full pipeline (if not already in one)
 
-@~/.copilot/old-sdd/shared/spec.md
-@~/.copilot/old-sdd/shared/colleague-mode.md
+@~/.claude/old-sdd/shared/spec.md
+@~/.claude/old-sdd/shared/colleague-mode.md

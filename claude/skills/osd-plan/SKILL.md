@@ -56,5 +56,5 @@ After planning, suggest `/osd-implement` to execute the plan.
 
 Planning should complete within 20% of context. If the spec is huge, this is a signal to split into multiple plans.
 
-@~/.copilot/old-sdd/shared/plan.md
-@~/.copilot/old-sdd/shared/colleague-mode.md
+@~/.claude/old-sdd/shared/plan.md
+@~/.claude/old-sdd/shared/colleague-mode.md

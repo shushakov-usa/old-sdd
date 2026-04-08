@@ -35,5 +35,5 @@ After brainstorming, suggest the next step:
 
 Brainstorming should use 30-50% of context max. If the topic is huge, suggest decomposing into sub-topics.
 
-@~/.copilot/old-sdd/shared/brainstorm.md
-@~/.copilot/old-sdd/shared/colleague-mode.md
+@~/.claude/old-sdd/shared/brainstorm.md
+@~/.claude/old-sdd/shared/colleague-mode.md

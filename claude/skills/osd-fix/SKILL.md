@@ -45,5 +45,5 @@ Every bug fix MUST include a regression test that:
 1. Would have failed before the fix
 2. Passes after the fix
 
-@~/.copilot/old-sdd/shared/fix-flow.md
-@~/.copilot/old-sdd/shared/colleague-mode.md
+@~/.claude/old-sdd/shared/fix-flow.md
+@~/.claude/old-sdd/shared/colleague-mode.md

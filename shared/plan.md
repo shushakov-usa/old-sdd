@@ -90,3 +90,15 @@ During planning, apply colleague-mode:
 - Is the task decomposition sensible? Are tasks too large or too small?
 - Are there tasks that should be parallel but aren't?
 - Does the plan actually achieve the spec's goals, or does it miss something?
+
+## Context Budget
+
+Planning should complete within **15-20% of context**. If the spec is so large that planning alone consumes more, this is a signal to:
+1. Split into multiple plans (Phase 1, Phase 2, etc.)
+2. Or reduce scope per plan
+
+## What Happens Next
+
+After the plan is written:
+- **In a `/osd-build` pipeline** → transition to implement phase automatically
+- **Standalone** → suggest `/osd-implement` to execute the plan

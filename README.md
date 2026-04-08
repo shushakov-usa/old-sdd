@@ -6,20 +6,40 @@ old-sdd is a set of markdown skills that teach your AI agent to brainstorm thoro
 
 ## Skills
 
-| Skill | Description |
+| Skill | When to Use |
 |-------|-------------|
-| `/osd-build` | Full feature pipeline: brainstorm → spec → plan → implement → validate |
-| `/osd-fix` | Bug fix pipeline: understand → plan → implement → validate |
-| `/osd-brainstorm` | Standalone brainstorming with integrated research |
-| `/osd-spec` | Write a specification document |
-| `/osd-plan` | Break a spec into parallelizable tasks |
-| `/osd-implement` | Execute a plan with parallel subagents |
-| `/osd-validate` | Verify implementation quality and spec compliance |
+| `/osd-build` | New feature or major change — full pipeline |
+| `/osd-fix` | Bug reported or tests failing |
+| `/osd-brainstorm` | Exploring ideas before committing to build |
+| `/osd-spec` | Formalizing brainstorming into a committed spec |
+| `/osd-plan` | Breaking a spec into parallelizable task waves |
+| `/osd-implement` | Executing a written plan with subagents |
+| `/osd-validate` | Verifying implementation before shipping |
 
 ## Installation
 
-### GitHub Copilot CLI
+### Quick Install (recommended)
 
+```bash
+git clone https://github.com/shushakov-usa/old-sdd ~/.old-sdd
+~/.old-sdd/install.sh
+```
+
+The installer auto-detects which CLIs you have (`~/.copilot/`, `~/.codex/`, `~/.claude/`) and symlinks the skills. Run `git pull` inside `~/.old-sdd/` to update.
+
+### Install for a Specific Platform
+
+```bash
+~/.old-sdd/install.sh copilot   # GitHub Copilot CLI only
+~/.old-sdd/install.sh codex     # OpenAI Codex CLI only
+~/.old-sdd/install.sh claude    # Claude Code CLI only
+```
+
+### Manual Install
+
+If you prefer not to use the installer:
+
+**GitHub Copilot CLI:**
 ```bash
 git clone https://github.com/shushakov-usa/old-sdd /tmp/old-sdd
 cp -r /tmp/old-sdd/copilot/skills/osd-* ~/.copilot/skills/
@@ -27,13 +47,18 @@ mkdir -p ~/.copilot/old-sdd
 cp -r /tmp/old-sdd/shared ~/.copilot/old-sdd/shared
 ```
 
-### Codex CLI
-
+**OpenAI Codex CLI:**
 ```bash
-git clone https://github.com/shushakov-usa/old-sdd /tmp/old-sdd
 cp -r /tmp/old-sdd/codex/skills/osd-* ~/.codex/skills/
 mkdir -p ~/.codex/old-sdd
 cp -r /tmp/old-sdd/shared ~/.codex/old-sdd/shared
+```
+
+**Claude Code CLI:**
+```bash
+cp -r /tmp/old-sdd/claude/skills/osd-* ~/.claude/skills/
+mkdir -p ~/.claude/old-sdd
+cp -r /tmp/old-sdd/shared ~/.claude/old-sdd/shared
 ```
 
 After installation, restart your agent CLI. The skills will appear in the command list.
@@ -43,7 +68,7 @@ After installation, restart your agent CLI. The skills will appear in the comman
 ### Build a Feature
 
 ```
-/osd-build
+/osd-build add user authentication
 ```
 
 The agent will:
@@ -57,10 +82,10 @@ The agent will:
 ### Fix a Bug
 
 ```
-/osd-fix
+/osd-fix login fails with 500 error after password reset
 ```
 
-Lighter flow: understand the bug → plan a fix → implement with regression tests → validate.
+Lighter flow: investigate the bug → plan a fix → implement with regression tests → validate.
 
 ### Individual Phases
 
@@ -94,7 +119,8 @@ It won't be contrarian for the sake of it, and if you insist after hearing its c
 ## Platforms
 
 - **GitHub Copilot CLI** — Full support
-- **OpenAI Codex CLI** — Full support (interactive skills require suggest mode)
+- **OpenAI Codex CLI** — Full support (adapts to suggest mode)
+- **Claude Code CLI** — Full support
 
 ## License
 

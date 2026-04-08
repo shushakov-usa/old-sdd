@@ -52,5 +52,5 @@ This is the longest flow — it uses significant context.
 
 If context pressure is high before planning completes, checkpoint to user and suggest continuing with `/osd-plan` in a fresh session.
 
-@~/.copilot/old-sdd/shared/build-flow.md
-@~/.copilot/old-sdd/shared/colleague-mode.md
+@~/.claude/old-sdd/shared/build-flow.md
+@~/.claude/old-sdd/shared/colleague-mode.md

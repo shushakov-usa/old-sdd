@@ -54,11 +54,5 @@ If you've completed 60%+ of tasks and context is pressured, commit progress and 
 
 After all tasks complete, suggest `/osd-validate` to verify.
 
-<codex_adapter>
-Before interactive questioning, check if Codex is in suggest mode:
-- If suggest mode: batch all questions into a single structured response. Do not use interactive ask_user.
-- If full-auto mode: proceed normally with interactive questioning.
-</codex_adapter>
-
-@~/.codex/old-sdd/shared/implement.md
-@~/.codex/old-sdd/shared/colleague-mode.md
+@~/.claude/old-sdd/shared/implement.md
+@~/.claude/old-sdd/shared/colleague-mode.md

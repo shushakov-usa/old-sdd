@@ -88,3 +88,9 @@ Apply colleague-mode during self-review:
 - Is this spec ambitious enough? Or did we settle for a mediocre approach?
 - Are the validation criteria actually testable?
 - Would a future reader understand WHY decisions were made?
+
+## What Happens Next
+
+After the spec is committed:
+- **In a `/osd-build` pipeline** → transition to plan phase automatically
+- **Standalone** → suggest `/osd-plan` to create an implementation plan

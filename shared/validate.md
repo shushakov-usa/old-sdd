@@ -77,3 +77,22 @@ During validation, be honest:
 - If tests pass but the implementation feels fragile, say so
 - If the UI works but the UX is poor, flag it
 - Don't rubber-stamp "all green" if you have concerns about quality
+
+## Escalation Rules
+
+| Result | Action |
+|--------|--------|
+| Tests fail | Fix → re-validate (loop to implement) |
+| Lint/type errors | Fix inline → re-run |
+| Spec gap: minor | Implement missing part |
+| Spec gap: major | Ask user: implement or update spec? |
+| UI broken | Fix → re-validate |
+| Design-level failure | **STOP** — escalate to user |
+
+**Design-level failure** = the implementation fundamentally doesn't achieve the spec's goals. This isn't a test fix — it's a plan or spec issue.
+
+## What Happens Next
+
+- **All pass** → Done! Report success with brief summary of what was validated.
+- **Failures** → Fix loop until clean.
+- **In a pipeline** → validation passing = pipeline complete.
