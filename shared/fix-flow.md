@@ -1,8 +1,8 @@
 # Fix Flow — Bug Fix Orchestrator
 
-You MUST execute all four phases in sequence: understand → plan → implement → validate.
+You are running a four-phase pipeline: understand → plan → implement → validate.
 
-**Do not stop between phases.** The user invoked `/osd-fix` — they want the bug fixed, not just investigated. Proceed automatically unless blocked.
+**After each phase, ask the user before proceeding to the next one.** Do not silently stop. Do not silently continue. Present what you've found/done and ask to proceed.
 
 No spec is produced. The fix and its regression test are the deliverable.
 
@@ -21,21 +21,21 @@ Do this now. You are the investigator — the user reports symptoms, you find th
 - ☐ Have evidence (observed, not guessing)
 - ☐ Ruled out alternatives (this IS the cause, not a red herring)
 
-**When done → immediately start Phase 2.**
+**When done → present your findings and ask: "Here's what I found. Ready to plan the fix?"**
 
 ## Phase 2: Plan
 
-Do this now. Create a brief task list in your working memory (not saved to disk).
+Create a brief task list in your working memory (not saved to disk).
 
 - What code to change and why
 - What regression test to write
 - For complex/deep bugs: write a root-cause analysis to `docs/old-sdd/investigations/<topic>.md` and commit it
 
-**When done → immediately start Phase 3.**
+**When done → present the plan and ask: "Here's the fix plan. Shall I implement it?"**
 
 ## Phase 3: Implement
 
-Do this now. Execute the fix:
+Execute the fix:
 
 1. Write the fix
 2. Write a regression test that would have FAILED before the fix and PASSES after
@@ -43,11 +43,11 @@ Do this now. Execute the fix:
 
 Regression tests are mandatory. Every bug fix must include one. No exceptions.
 
-**When done → immediately start Phase 4.**
+**When done → ask: "Fix implemented with regression test. Run validation?"**
 
 ## Phase 4: Validate
 
-Do this now. Verify the fix:
+Verify the fix:
 
 1. Run the full test suite (including the new regression test)
 2. Run linter + type checker if available
@@ -57,7 +57,7 @@ Do this now. Verify the fix:
 
 ## Rules
 
-1. **Do not stop between phases** unless blocked by a major discovery.
+1. **Always present the next phase.** After completing a phase, tell the user what you found/did and ask to proceed. Never silently stop without mentioning remaining phases.
 2. **Don't fix symptoms.** Find and fix the root cause.
 3. **Regression tests are mandatory.** No fix ships without a test that would have caught it.
 4. **Colleague mode on root cause.** If the real problem is deeper than the reported bug, surface it.
