@@ -1,44 +1,13 @@
 ---
 name: osd-spec
-description: "Use when brainstorming is complete and decisions need to be formalized into a committed specification document"
-argument-hint: <topic> (or omit to use current session context)
+description: "Use when brainstorming is done and decisions need to be formalized. Writes a specification document with problem, solution, architecture, behavior, decisions, and validation criteria."
 ---
 
-# osd-spec
+# Spec Phase
 
-Write and commit a specification document.
+Formalize brainstorming results into a committed spec. If invoked without prior context, ask focused questions to build understanding first — or suggest `/osd-brainstorm`.
 
-## When to Use
-
-- **Brainstorming is done** — decisions are made, requirements are clear
-- User explicitly asks to **write a spec** or **formalize decisions**
-- Context holds enough understanding to write a complete spec
-
-## When NOT to Use
-
-| Situation | Use Instead |
-|-----------|-------------|
-| Still exploring / requirements unclear | `/osd-brainstorm` |
-| Spec exists, need a plan | `/osd-plan` |
-| Want the full pipeline | `/osd-build` (includes spec phase) |
-| Bug fix | `/osd-fix` (no spec needed) |
-
-## Prerequisites
-
-This skill needs brainstorming context. If invoked with no context:
-1. Check if the user provided a topic via argument
-2. If yes — ask focused questions to build enough understanding
-3. If no — suggest `/osd-brainstorm` first
-
-## What This Produces
-
-`docs/old-sdd/specs/YYYY-MM-DD-<topic>.md` — committed to git.
-
-## What Happens Next
-
-After the spec is committed, suggest:
-- `/osd-plan` to create an implementation plan
-- Or `/osd-build` to continue the full pipeline (if not already in one)
+Produces `docs/old-sdd/specs/YYYY-MM-DD-<topic>.md`. After the spec is committed, suggest `/osd-plan`.
 
 <!-- include: shared/spec.md -->
 

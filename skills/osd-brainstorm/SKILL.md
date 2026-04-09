@@ -1,39 +1,13 @@
 ---
 name: osd-brainstorm
-description: "Use before committing to a spec — explore user needs, challenge assumptions, research options, and align on requirements through interactive questioning"
-argument-hint: <topic or idea to explore>
+description: "Use to explore ideas, gather requirements, or make design decisions before building. Handles interactive questioning, research, and critical thinking for new features, architecture decisions, or technology choices."
 ---
 
-# osd-brainstorm
+# Brainstorm Phase
 
-Standalone brainstorming phase. Interactive questioning + research + critical thinking.
+Standalone brainstorming — explore what to build before committing to a spec.
 
-## When to Use
-
-- **Exploring an idea** before deciding to build it
-- **Gathering requirements** for a new feature
-- **Evaluating options** (tech stack, architecture, approach)
-- User is unsure **what** to build, not just how
-
-## When NOT to Use
-
-| Situation | Use Instead |
-|-----------|-------------|
-| Ready to build (requirements clear) | `/osd-build` |
-| Spec already written | `/osd-plan` |
-| Bug or failure | `/osd-fix` |
-| User knows exactly what they want | `/osd-build` (will brainstorm as Phase 1) |
-
-## What Happens Next
-
-After brainstorming, suggest the next step:
-- **Ready to formalize?** → `/osd-spec` to write the spec
-- **Ready to build end-to-end?** → `/osd-build` (which includes spec + plan + implement)
-- **Need more exploration?** → Continue brainstorming
-
-## Context Budget
-
-Brainstorming should use 30-50% of context max. If the topic is huge, suggest decomposing into sub-topics.
+After brainstorming, suggest `/osd-spec` to formalize decisions, or `/osd-build` to run the full pipeline.
 
 <!-- include: shared/brainstorm.md -->
 

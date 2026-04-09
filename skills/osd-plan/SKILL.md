@@ -1,60 +1,13 @@
 ---
 name: osd-plan
-description: "Use after you have a spec but before implementation — breaks requirements into executable task waves with dependency tracking and model hints"
-argument-hint: <path to spec> (or omit to find latest in docs/old-sdd/specs/)
+description: "Use after a spec is written to break requirements into executable tasks. Creates wave-based task decomposition with dependency tracking, model hints, and parallel execution groups."
 ---
 
-# osd-plan
+# Plan Phase
 
-Create an implementation plan from a specification.
+Break a spec into executable tasks. Needs a spec — check session context, then `docs/old-sdd/specs/`, then ask the user. If no spec exists, suggest `/osd-spec` first.
 
-## When to Use
-
-- **Spec exists** and is committed (or held in session context)
-- Ready to **decompose into tasks** before implementing
-- Need to figure out **what can run in parallel**
-
-## When NOT to Use
-
-| Situation | Use Instead |
-|-----------|-------------|
-| No spec yet / requirements unclear | `/osd-brainstorm` then `/osd-spec` |
-| Plan exists, ready to execute | `/osd-implement` |
-| Want full pipeline from scratch | `/osd-build` |
-| Bug fix (lightweight, no formal plan) | `/osd-fix` |
-
-## Prerequisites
-
-Needs a spec. Resolution order:
-1. Spec in current session context
-2. Argument: path to spec file
-3. Auto-find: most recent file in `docs/old-sdd/specs/`
-4. None found → ask user, suggest `/osd-spec`
-
-## Decision Flow
-
-```
-Spec found?
-    ├─ NO → suggest /osd-spec
-    └─ YES → Spec clear enough to plan?
-                ├─ NO → ask clarifying questions
-                └─ YES → Create wave-based plan
-                            │
-                            └─ Write to docs/old-sdd/plans/
-                               Suggest /osd-implement
-```
-
-## What This Produces
-
-`docs/old-sdd/plans/YYYY-MM-DD-<topic>.md` — committed alongside the spec.
-
-## What Happens Next
-
-After planning, suggest `/osd-implement` to execute the plan.
-
-## Context Budget
-
-Planning should complete within 20% of context. If the spec is huge, this is a signal to split into multiple plans.
+Produces `docs/old-sdd/plans/YYYY-MM-DD-<topic>.md` — committed alongside the spec. After planning, suggest `/osd-implement`.
 
 <!-- include: shared/plan.md -->
 
