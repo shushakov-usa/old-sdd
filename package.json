@@ -1,0 +1,32 @@
+{
+  "name": "old-sdd",
+  "version": "0.2.0",
+  "description": "Spec-driven development skills for AI coding agents (Copilot CLI, Codex CLI, Claude Code)",
+  "bin": {
+    "old-sdd": "./cli.js"
+  },
+  "files": [
+    "cli.js",
+    "skills/",
+    "shared/",
+    "install.sh",
+    "README.md"
+  ],
+  "keywords": [
+    "copilot",
+    "codex",
+    "claude",
+    "ai",
+    "skills",
+    "spec-driven",
+    "sdd"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/shushakov-usa/old-sdd"
+  },
+  "license": "MIT",
+  "engines": {
+    "node": ">=14"
+  }
+}

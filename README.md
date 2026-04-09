@@ -19,22 +19,22 @@ old-sdd is a set of markdown skills that teach your AI agent to brainstorm thoro
 ## Installation
 
 ```bash
+npx old-sdd install
+```
+
+Auto-detects which CLIs you have (Copilot, Codex, Claude) and compiles self-contained skills for each.
+
+```bash
+npx old-sdd install copilot   # specific platform only
+npx old-sdd uninstall          # remove all osd-* skills
+npx old-sdd list               # show what's installed
+```
+
+### From Source
+
+```bash
 git clone https://github.com/shushakov-usa/old-sdd ~/.old-sdd
-~/.old-sdd/install.sh
-```
-
-The installer auto-detects which CLIs you have (`~/.copilot/`, `~/.codex/`, `~/.claude/`) and compiles self-contained SKILL.md files with all shared content inlined. To update:
-
-```bash
-cd ~/.old-sdd && git pull && ./install.sh
-```
-
-### Install for a Specific Platform
-
-```bash
-~/.old-sdd/install.sh copilot   # GitHub Copilot CLI only
-~/.old-sdd/install.sh codex     # OpenAI Codex CLI only
-~/.old-sdd/install.sh claude    # Claude Code CLI only
+cd ~/.old-sdd && node cli.js install
 ```
 
 After installation, restart your agent CLI. The skills will appear in the command list.
@@ -95,9 +95,10 @@ It won't be contrarian for the sake of it, and if you insist after hearing its c
 ## Architecture
 
 ```
+cli.js           ← Node.js CLI (npx old-sdd install/uninstall/list)
 skills/          ← 7 universal SKILL.md templates (routing + include markers)
 shared/          ← shared content (inlined at install time)
-install.sh       ← compiles templates → self-contained installed files
+install.sh       ← shell alternative to cli.js
 ```
 
 The installer expands `<!-- include: shared/file.md -->` markers and handles platform-specific blocks (`<!-- platform: codex -->`) so each installed SKILL.md is fully self-contained with no external dependencies.

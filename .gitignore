@@ -9,5 +9,8 @@ Thumbs.db
 .idea/
 .vscode/
 
+# Node
+node_modules/
+
 # old-sdd runtime artifacts (not committed by users)
 .osd/
