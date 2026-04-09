@@ -1,69 +1,63 @@
 # Fix Flow — Bug Fix Orchestrator
 
-Lighter pipeline for bug fixes: understand → plan → implement → validate.
+You MUST execute all four phases in sequence: understand → plan → implement → validate.
 
-No spec is produced. The fix itself is the deliverable.
+**Do not stop between phases.** The user invoked `/osd-fix` — they want the bug fixed, not just investigated. Proceed automatically unless blocked.
 
-## Flow
+No spec is produced. The fix and its regression test are the deliverable.
 
-```
-brainstorm (understand bug)
-    ↓
-  plan (ephemeral) → implement ←→ validate
-                         ↑              |
-                         └──────────────┘ (on failure)
-```
+## Phase 1: Understand the Bug
 
-## Phase Execution
+Do this now. You are the investigator — the user reports symptoms, you find the root cause.
 
-### Phase 1: Understand the Bug
-
-Use brainstorm-phase questioning, but focused on understanding the bug:
-
-- **Reproduction:** What are the steps to reproduce? What is the expected vs actual behavior?
-- **Root cause investigation:** Explore the codebase. Read error logs, stack traces, relevant code.
-- **Colleague mode:** Question the user's assumptions about the cause. The user might be wrong about where the bug is.
-
-This phase is lighter than feature brainstorming — fewer questions, more investigation.
-
-**Investigation discipline:**
-- Don't trust the user's diagnosis. Verify independently.
-- Don't guess. Gather evidence: logs, stack traces, reproduction steps.
-- Don't fix symptoms. Find the root cause.
+1. **Gather evidence** — read error logs, stack traces, relevant code. Do not trust the user's diagnosis.
+2. **Reproduce** — find the steps or trigger. If you can't reproduce, understand why it happens from the code.
+3. **Investigate** — trace the code path. Read the actual source, don't guess.
+4. **Challenge assumptions** — the user might be wrong about where the bug is. Question their diagnosis.
 
 **Ready to fix?** All four must be YES:
-1. ☐ Understand the mechanism (why, not just that)
-2. ☐ Can reproduce reliably (or understand the trigger)
-3. ☐ Have evidence (observed, not guessing)
-4. ☐ Ruled out alternatives (this IS the cause)
+- ☐ Understand the mechanism (why, not just that it happens)
+- ☐ Can reproduce reliably (or understand the trigger)
+- ☐ Have evidence (observed, not guessing)
+- ☐ Ruled out alternatives (this IS the cause, not a red herring)
 
-### Phase 2: Plan
+**When done → immediately start Phase 2.**
 
-Create a brief task list. This is ephemeral — it stays in agent context, not saved to disk.
+## Phase 2: Plan
 
-For **complex/deep bugs** (agent's judgment): write a root-cause analysis to `docs/old-sdd/investigations/<topic>.md` and commit it. This helps if the same area breaks again.
+Do this now. Create a brief task list in your working memory (not saved to disk).
 
-### Phase 3: Implement
+- What code to change and why
+- What regression test to write
+- For complex/deep bugs: write a root-cause analysis to `docs/old-sdd/investigations/<topic>.md` and commit it
 
-Same as the build flow's implement phase:
-- Execute tasks
-- Write tests that reproduce the bug and verify the fix
-- Atomic commits
+**When done → immediately start Phase 3.**
 
-**Key difference:** Every bug fix MUST include a regression test that:
-1. Would have failed before the fix
-2. Passes after the fix
+## Phase 3: Implement
 
-### Phase 4: Validate
+Do this now. Execute the fix:
 
-Same as the build flow's validate phase:
-- Batch baseline checks
-- UI verification if relevant
-- Confirm the bug is actually fixed — reproduce the original steps
+1. Write the fix
+2. Write a regression test that would have FAILED before the fix and PASSES after
+3. Atomic commit: fix + test together
 
-## Behavior Rules
+Regression tests are mandatory. Every bug fix must include one. No exceptions.
 
-1. **No spec.** Bug fixes don't need formal specs. The fix and its test are the documentation.
-2. **Investigation notes for deep bugs.** If the bug took significant investigation, document the root cause in `docs/old-sdd/investigations/`.
-3. **Regression tests are mandatory.** Every fix must include a test that would have caught the bug.
-4. **Colleague mode on root cause.** Don't just fix the symptom. If the real problem is deeper, surface it.
+**When done → immediately start Phase 4.**
+
+## Phase 4: Validate
+
+Do this now. Verify the fix:
+
+1. Run the full test suite (including the new regression test)
+2. Run linter + type checker if available
+3. Confirm the original bug is actually fixed — reproduce the original steps
+4. On failure: loop back to Phase 3
+5. On success: report summary — you're done
+
+## Rules
+
+1. **Do not stop between phases** unless blocked by a major discovery.
+2. **Don't fix symptoms.** Find and fix the root cause.
+3. **Regression tests are mandatory.** No fix ships without a test that would have caught it.
+4. **Colleague mode on root cause.** If the real problem is deeper than the reported bug, surface it.

@@ -1,62 +1,71 @@
 # Build Flow — Feature Development Orchestrator
 
-Full pipeline for feature development: brainstorm → spec → plan → implement → validate.
+You MUST execute all five phases in sequence: brainstorm → spec → plan → implement → validate.
 
-## Flow
+**Do not stop between phases.** Do not ask "should I continue?" after a phase completes. The user invoked `/osd-build` — they want the full pipeline. Proceed automatically unless the user interrupts you.
 
-```
-brainstorm ←→ (internal research)
-    ↓
-  spec → plan → implement ←→ validate
-                    ↑              |
-                    └──────────────┘ (on failure)
-```
+The only pause point is the transition gate after brainstorming (where the user chooses review-together or go-straight-to-work). After that choice, execute every remaining phase without stopping.
 
-## Phase Execution
+## Phase 1: Brainstorm
 
-### Phase 1: Brainstorm
+Do this now. Follow the brainstorm procedure:
+1. Assess scope — single feature or multiple subsystems?
+2. Ask questions — batch independent ones, sequence dependent ones
+3. Research during questioning — web search, codebase analysis
+4. Apply colleague-mode at decision points
+5. When you have enough understanding, present the transition gate:
+   - "Write spec, then review together" — user reviews before you continue
+   - "Write spec and go straight to work" — you self-review and proceed autonomously
+   - "I have more questions" — continue brainstorming
 
-Execute the brainstorm phase (shared/brainstorm.md):
-- Ask questions (batched when independent, sequential when dependent)
-- Research as needed during questioning
-- Apply colleague-mode at decision points
-- End with the transition gate
+**When done → immediately start Phase 2.**
 
-### Phase 2: Spec
+## Phase 2: Spec
 
-Execute the spec phase (shared/spec.md):
-- Write specification to `docs/old-sdd/specs/YYYY-MM-DD-<topic>.md`
-- Self-review the spec
-- If user chose "review together": present for approval
-- If user chose "straight to work": self-review only, proceed
-- Commit the spec
+Do this now. Follow the spec procedure:
+1. Write the spec to `docs/old-sdd/specs/YYYY-MM-DD-<topic>.md`
+2. Self-review: fix placeholders, contradictions, ambiguity, scope creep
+3. If user chose "review together": present for approval, iterate on feedback
+4. If user chose "straight to work": self-review is sufficient
+5. Commit the spec
 
-### Phase 3: Plan
+**When done → immediately start Phase 3.**
 
-Execute the plan phase (shared/plan.md):
-- Break spec into tasks with wave-based parallelism
-- Write plan to `docs/old-sdd/plans/YYYY-MM-DD-<topic>.md`
-- Identify what can run in parallel and what needs sequencing
+## Phase 3: Plan
 
-### Phase 4: Implement
+Do this now. Follow the plan procedure:
+1. Read the spec you just wrote
+2. List all concrete tasks needed
+3. Map dependencies between tasks
+4. Group independent tasks into parallel waves
+5. Add model hints (cheap vs standard) per task
+6. Write plan to `docs/old-sdd/plans/YYYY-MM-DD-<topic>.md` and commit
 
-Execute the implement phase (shared/implement.md):
-- Execute wave by wave
-- Dispatch parallel subagents for independent tasks
-- Use cheaper model for straightforward tasks
-- Atomic commit per task (code + tests)
+**When done → immediately start Phase 4.**
 
-### Phase 5: Validate
+## Phase 4: Implement
 
-Execute the validate phase (shared/validate.md):
-- Batch baseline checks (tests + lint + types in parallel)
-- UI verification if changes touched UI
-- Spec compliance check
-- On failure: loop to Phase 4 (or Phase 3 if design-level issue)
+Do this now. Follow the implement procedure:
+1. Read the plan you just wrote
+2. Execute wave by wave — parallel subagents for independent tasks within each wave
+3. Use cheaper model for straightforward tasks, standard for complex ones
+4. Atomic commit per task (code + tests together)
+5. Handle deviations: minor → proceed; major → stop and report to user
 
-## Behavior Rules
+**When done → immediately start Phase 5.**
 
-1. **Start fresh.** Don't look for existing state or try to resume. If the user wants to continue interrupted work, they invoke a phase skill directly.
-2. **Flow forward.** Don't skip phases. Even if the feature seems simple, go through brainstorm → spec → plan → implement → validate.
-3. **Loop on failure.** If validation fails, loop back to implement. If the plan was wrong, loop back to plan. If the spec was wrong, surface it to the user — don't try to fix the spec unilaterally.
-4. **Colleague mode throughout.** Apply shared/colleague-mode.md behavior in every phase, especially at decision points.
+## Phase 5: Validate
+
+Do this now. Follow the validate procedure:
+1. Run tests + linter + type checker in parallel
+2. If UI was touched, verify visually
+3. Check spec compliance — walk through each requirement
+4. On failure: loop back to Phase 4 (or Phase 3 if the plan was wrong)
+5. On success: report summary — you're done
+
+## Rules
+
+1. **Do not stop between phases** unless the user interrupts or a major deviation blocks you.
+2. **Do not skip phases.** Even simple features go through all five.
+3. **Loop on failure.** Validation fails → implement again. Plan was wrong → replan. Spec was wrong → surface to user.
+4. **Colleague mode throughout.** Challenge decisions, surface problems, don't rubber-stamp.
