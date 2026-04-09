@@ -11,8 +11,6 @@ After all tasks complete, suggest `/osd-validate` to verify.
 
 <!-- include: shared/implement.md -->
 
-<!-- include: shared/colleague-mode.md -->
-
 <!-- platform: codex -->
 <codex_adapter>
 Before interactive questioning, check if Codex is in suggest mode:

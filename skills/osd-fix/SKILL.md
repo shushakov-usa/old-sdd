@@ -9,8 +9,6 @@ Understand → plan → implement → validate. No spec needed — the fix and i
 
 <!-- include: shared/fix-flow.md -->
 
-<!-- include: shared/colleague-mode.md -->
-
 <!-- platform: codex -->
 <codex_adapter>
 Before interactive questioning, check if Codex is in suggest mode:

@@ -11,8 +11,6 @@ Produces `docs/old-sdd/plans/YYYY-MM-DD-<topic>.md` — committed alongside the 
 
 <!-- include: shared/plan.md -->
 
-<!-- include: shared/colleague-mode.md -->
-
 <!-- platform: codex -->
 <codex_adapter>
 Before interactive questioning, check if Codex is in suggest mode:

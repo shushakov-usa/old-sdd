@@ -9,8 +9,6 @@ Verify implementation quality and spec compliance. Find the spec in `docs/old-sd
 
 <!-- include: shared/validate.md -->
 
-<!-- include: shared/colleague-mode.md -->
-
 <!-- platform: codex -->
 <codex_adapter>
 Before interactive questioning, check if Codex is in suggest mode:

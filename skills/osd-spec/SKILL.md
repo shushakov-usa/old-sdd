@@ -11,8 +11,6 @@ Produces `docs/old-sdd/specs/YYYY-MM-DD-<topic>.md`. After the spec is committed
 
 <!-- include: shared/spec.md -->
 
-<!-- include: shared/colleague-mode.md -->
-
 <!-- platform: codex -->
 <codex_adapter>
 Before interactive questioning, check if Codex is in suggest mode:

@@ -11,8 +11,6 @@ If context pressure builds before planning completes, checkpoint and suggest the
 
 <!-- include: shared/build-flow.md -->
 
-<!-- include: shared/colleague-mode.md -->
-
 <!-- platform: codex -->
 <codex_adapter>
 Before interactive questioning, check if Codex is in suggest mode:
