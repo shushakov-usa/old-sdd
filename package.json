@@ -1,6 +1,6 @@
 {
   "name": "old-sdd",
-  "version": "0.3.2",
+  "version": "0.3.3",
   "description": "Spec-driven development skills for AI coding agents (Copilot CLI, Codex CLI, Claude Code)",
   "bin": {
     "old-sdd": "cli.js"

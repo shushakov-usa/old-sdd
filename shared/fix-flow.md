@@ -17,10 +17,15 @@ No spec is produced. The fix and its regression test are the deliverable.
 
 This phase has no separate skill — do it inline. You are the investigator.
 
-1. **Gather evidence** — read error logs, stack traces, relevant code. Do not trust the user's diagnosis.
-2. **Reproduce** — find the steps or trigger. If you can't reproduce, understand why from the code.
-3. **Investigate** — trace the code path. Read actual source, don't guess.
-4. **Challenge assumptions** — the user might be wrong about where the bug is.
+1. **Ask the user** — don't assume you understand the bug from the first message. Ask clarifying questions:
+   - What behavior did you expect?
+   - What actually happened?
+   - When did it start? What changed recently?
+   - Can you show me the error / steps to reproduce?
+2. **Gather evidence** — read error logs, stack traces, relevant code. Do not trust the user's diagnosis blindly.
+3. **Reproduce** — find the steps or trigger. If you can't reproduce, understand why from the code.
+4. **Investigate** — trace the code path. Read actual source, don't guess.
+5. **Challenge assumptions** — the user might be wrong about where the bug is. Ask more questions if something doesn't add up.
 
 **Ready to fix?** All four must be YES:
 - ☐ Understand the mechanism (why, not just that it happens)
@@ -28,9 +33,16 @@ This phase has no separate skill — do it inline. You are the investigator.
 - ☐ Have evidence (observed, not guessing)
 - ☐ Ruled out alternatives (this IS the cause, not a red herring)
 
+## Escalation to Build
+
+If investigation reveals the bug requires significant rework — architectural changes, new subsystems, or redesign of existing ones — this is not a fix, it's a feature.
+
+Stop and tell the user: "This is bigger than a bugfix. I recommend switching to `/osd-build` to handle this properly with spec and plan." Let the user decide.
+
 ## Rules
 
 1. **Always present the next phase.** After completing a phase, tell the user what you found/did and ask to proceed. Never silently stop.
-2. **Don't fix symptoms.** Find and fix the root cause.
-3. **Regression tests are mandatory.** No fix ships without a test that would have caught it.
-4. **Colleague mode on root cause.** If the real problem is deeper than the reported bug, surface it.
+2. **Ask when unclear.** If you're unsure about expected behavior, edge cases, or priorities — ask the user. Don't guess.
+3. **Don't fix symptoms.** Find and fix the root cause.
+4. **Regression tests are mandatory.** No fix ships without a test that would have caught it.
+5. **Colleague mode on root cause.** If the real problem is deeper than the reported bug, surface it.
