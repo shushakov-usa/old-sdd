@@ -35,5 +35,14 @@ After brainstorming, suggest the next step:
 
 Brainstorming should use 30-50% of context max. If the topic is huge, suggest decomposing into sub-topics.
 
-@~/.copilot/old-sdd/shared/brainstorm.md
-@~/.copilot/old-sdd/shared/colleague-mode.md
+<!-- include: shared/brainstorm.md -->
+
+<!-- include: shared/colleague-mode.md -->
+
+<!-- platform: codex -->
+<codex_adapter>
+Before interactive questioning, check if Codex is in suggest mode:
+- If suggest mode: batch all questions into a single structured response. Do not use interactive ask_user.
+- If full-auto mode: proceed normally with interactive questioning.
+</codex_adapter>
+<!-- /platform: codex -->

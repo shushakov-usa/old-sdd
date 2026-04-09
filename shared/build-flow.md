@@ -35,7 +35,7 @@ Execute the spec phase (shared/spec.md):
 
 Execute the plan phase (shared/plan.md):
 - Break spec into tasks with wave-based parallelism
-- Write plan to `.osd/plan.md`
+- Write plan to `docs/old-sdd/plans/YYYY-MM-DD-<topic>.md`
 - Identify what can run in parallel and what needs sequencing
 
 ### Phase 4: Implement

@@ -1,7 +1,7 @@
 ---
 name: osd-implement
 description: "Use when you have a written plan to execute — dispatches parallel subagents per task wave with model selection and progress tracking"
-argument-hint: <path to plan> (or omit to use .osd/plan.md)
+argument-hint: <path to plan> (or omit to find latest in docs/old-sdd/plans/)
 ---
 
 # osd-implement
@@ -10,7 +10,7 @@ Execute an implementation plan wave by wave.
 
 ## When to Use
 
-- **Plan exists** (`.osd/plan.md` or provided path)
+- **Plan exists** (in `docs/old-sdd/plans/` or provided path)
 - Ready to **write code** based on the plan
 - Tasks are defined with files, dependencies, and model hints
 
@@ -28,7 +28,7 @@ Execute an implementation plan wave by wave.
 
 Needs a plan. Resolution order:
 1. Argument: path to plan file
-2. Default: `.osd/plan.md`
+2. Auto-find: most recent file in `docs/old-sdd/plans/`
 3. None found → ask user, suggest `/osd-plan`
 
 ## Deviation Rules
@@ -54,11 +54,14 @@ If you've completed 60%+ of tasks and context is pressured, commit progress and 
 
 After all tasks complete, suggest `/osd-validate` to verify.
 
+<!-- include: shared/implement.md -->
+
+<!-- include: shared/colleague-mode.md -->
+
+<!-- platform: codex -->
 <codex_adapter>
 Before interactive questioning, check if Codex is in suggest mode:
 - If suggest mode: batch all questions into a single structured response. Do not use interactive ask_user.
 - If full-auto mode: proceed normally with interactive questioning.
 </codex_adapter>
-
-@~/.codex/old-sdd/shared/implement.md
-@~/.codex/old-sdd/shared/colleague-mode.md
+<!-- /platform: codex -->

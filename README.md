@@ -18,14 +18,16 @@ old-sdd is a set of markdown skills that teach your AI agent to brainstorm thoro
 
 ## Installation
 
-### Quick Install (recommended)
-
 ```bash
 git clone https://github.com/shushakov-usa/old-sdd ~/.old-sdd
 ~/.old-sdd/install.sh
 ```
 
-The installer auto-detects which CLIs you have (`~/.copilot/`, `~/.codex/`, `~/.claude/`) and symlinks the skills. Run `git pull` inside `~/.old-sdd/` to update.
+The installer auto-detects which CLIs you have (`~/.copilot/`, `~/.codex/`, `~/.claude/`) and compiles self-contained SKILL.md files with all shared content inlined. To update:
+
+```bash
+cd ~/.old-sdd && git pull && ./install.sh
+```
 
 ### Install for a Specific Platform
 
@@ -33,32 +35,6 @@ The installer auto-detects which CLIs you have (`~/.copilot/`, `~/.codex/`, `~/.
 ~/.old-sdd/install.sh copilot   # GitHub Copilot CLI only
 ~/.old-sdd/install.sh codex     # OpenAI Codex CLI only
 ~/.old-sdd/install.sh claude    # Claude Code CLI only
-```
-
-### Manual Install
-
-If you prefer not to use the installer:
-
-**GitHub Copilot CLI:**
-```bash
-git clone https://github.com/shushakov-usa/old-sdd /tmp/old-sdd
-cp -r /tmp/old-sdd/copilot/skills/osd-* ~/.copilot/skills/
-mkdir -p ~/.copilot/old-sdd
-cp -r /tmp/old-sdd/shared ~/.copilot/old-sdd/shared
-```
-
-**OpenAI Codex CLI:**
-```bash
-cp -r /tmp/old-sdd/codex/skills/osd-* ~/.codex/skills/
-mkdir -p ~/.codex/old-sdd
-cp -r /tmp/old-sdd/shared ~/.codex/old-sdd/shared
-```
-
-**Claude Code CLI:**
-```bash
-cp -r /tmp/old-sdd/claude/skills/osd-* ~/.claude/skills/
-mkdir -p ~/.claude/old-sdd
-cp -r /tmp/old-sdd/shared ~/.claude/old-sdd/shared
 ```
 
 After installation, restart your agent CLI. The skills will appear in the command list.
@@ -112,9 +88,19 @@ It won't be contrarian for the sake of it, and if you insist after hearing its c
 | What | Where | Committed? |
 |------|-------|-----------|
 | Specs | `docs/old-sdd/specs/YYYY-MM-DD-<topic>.md` | Yes |
-| Plans | `.osd/plan.md` | No (usually) |
+| Plans | `docs/old-sdd/plans/YYYY-MM-DD-<topic>.md` | Yes |
 | Bug investigations | `docs/old-sdd/investigations/<topic>.md` | Yes (complex bugs) |
 | Tests | Your project's test directory | Yes |
+
+## Architecture
+
+```
+skills/          ← 7 universal SKILL.md templates (routing + include markers)
+shared/          ← shared content (inlined at install time)
+install.sh       ← compiles templates → self-contained installed files
+```
+
+The installer expands `<!-- include: shared/file.md -->` markers and handles platform-specific blocks (`<!-- platform: codex -->`) so each installed SKILL.md is fully self-contained with no external dependencies.
 
 ## Platforms
 

@@ -40,13 +40,13 @@ Spec found?
                 ├─ NO → ask clarifying questions
                 └─ YES → Create wave-based plan
                             │
-                            └─ Write to .osd/plan.md
+                            └─ Write to docs/old-sdd/plans/
                                Suggest /osd-implement
 ```
 
 ## What This Produces
 
-`.osd/plan.md` — NOT committed by default. Contains tasks grouped into waves with model hints.
+`docs/old-sdd/plans/YYYY-MM-DD-<topic>.md` — committed alongside the spec.
 
 ## What Happens Next
 
@@ -56,5 +56,14 @@ After planning, suggest `/osd-implement` to execute the plan.
 
 Planning should complete within 20% of context. If the spec is huge, this is a signal to split into multiple plans.
 
-@~/.copilot/old-sdd/shared/plan.md
-@~/.copilot/old-sdd/shared/colleague-mode.md
+<!-- include: shared/plan.md -->
+
+<!-- include: shared/colleague-mode.md -->
+
+<!-- platform: codex -->
+<codex_adapter>
+Before interactive questioning, check if Codex is in suggest mode:
+- If suggest mode: batch all questions into a single structured response. Do not use interactive ask_user.
+- If full-auto mode: proceed normally with interactive questioning.
+</codex_adapter>
+<!-- /platform: codex -->

@@ -4,9 +4,7 @@ Break the spec into executable tasks grouped into parallelizable waves.
 
 ## Plan Location
 
-`.osd/plan.md` — written to disk but NOT committed by default.
-
-For complex multi-phase features where the plan captures decisions beyond the spec, the agent may commit the plan at its discretion.
+`docs/old-sdd/plans/YYYY-MM-DD-<topic>.md` — committed alongside the spec.
 
 ## Plan Format
 
@@ -82,7 +80,7 @@ The implementing agent uses these hints to select models (e.g., `claude-haiku-4.
 3. **Map dependencies** — What depends on what?
 4. **Group into waves** — Independent tasks in the same wave.
 5. **Add model hints** — Cheap vs standard for each task.
-6. **Write plan** — Save to `.osd/plan.md`.
+6. **Write plan** — Save to `docs/old-sdd/plans/YYYY-MM-DD-<topic>.md` and commit.
 
 ## Colleague Mode
 

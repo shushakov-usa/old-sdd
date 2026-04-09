@@ -45,5 +45,14 @@ Every bug fix MUST include a regression test that:
 1. Would have failed before the fix
 2. Passes after the fix
 
-@~/.claude/old-sdd/shared/fix-flow.md
-@~/.claude/old-sdd/shared/colleague-mode.md
+<!-- include: shared/fix-flow.md -->
+
+<!-- include: shared/colleague-mode.md -->
+
+<!-- platform: codex -->
+<codex_adapter>
+Before interactive questioning, check if Codex is in suggest mode:
+- If suggest mode: batch all questions into a single structured response. Do not use interactive ask_user.
+- If full-auto mode: proceed normally with interactive questioning.
+</codex_adapter>
+<!-- /platform: codex -->

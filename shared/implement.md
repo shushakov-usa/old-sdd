@@ -6,7 +6,7 @@ Execute the plan. This is where code gets written.
 
 ### 1. Read the Plan
 
-Load `.osd/plan.md`. Understand the waves, tasks, and dependencies.
+Load the plan from `docs/old-sdd/plans/`. Understand the waves, tasks, and dependencies.
 
 ### 2. Execute Wave by Wave
 

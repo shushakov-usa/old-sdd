@@ -52,5 +52,14 @@ This is the longest flow — it uses significant context.
 
 If context pressure is high before planning completes, checkpoint to user and suggest continuing with `/osd-plan` in a fresh session.
 
-@~/.copilot/old-sdd/shared/build-flow.md
-@~/.copilot/old-sdd/shared/colleague-mode.md
+<!-- include: shared/build-flow.md -->
+
+<!-- include: shared/colleague-mode.md -->
+
+<!-- platform: codex -->
+<codex_adapter>
+Before interactive questioning, check if Codex is in suggest mode:
+- If suggest mode: batch all questions into a single structured response. Do not use interactive ask_user.
+- If full-auto mode: proceed normally with interactive questioning.
+</codex_adapter>
+<!-- /platform: codex -->

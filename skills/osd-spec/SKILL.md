@@ -40,5 +40,14 @@ After the spec is committed, suggest:
 - `/osd-plan` to create an implementation plan
 - Or `/osd-build` to continue the full pipeline (if not already in one)
 
-@~/.copilot/old-sdd/shared/spec.md
-@~/.copilot/old-sdd/shared/colleague-mode.md
+<!-- include: shared/spec.md -->
+
+<!-- include: shared/colleague-mode.md -->
+
+<!-- platform: codex -->
+<codex_adapter>
+Before interactive questioning, check if Codex is in suggest mode:
+- If suggest mode: batch all questions into a single structured response. Do not use interactive ask_user.
+- If full-auto mode: proceed normally with interactive questioning.
+</codex_adapter>
+<!-- /platform: codex -->
