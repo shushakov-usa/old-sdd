@@ -17,11 +17,11 @@ No spec is produced. The fix and its regression test are the deliverable.
 
 This phase has no separate skill — do it inline. You are the investigator.
 
-1. **Ask the user** — don't assume you understand the bug from the first message. Ask clarifying questions:
-   - What behavior did you expect?
-   - What actually happened?
+1. **Clarify if needed** — if the bug report is unclear, ask before diving in:
+   - What behavior did you expect vs what happened?
    - When did it start? What changed recently?
-   - Can you show me the error / steps to reproduce?
+   - Steps to reproduce?
+   Don't ask if the report already answers these.
 2. **Gather evidence** — read error logs, stack traces, relevant code. Do not trust the user's diagnosis blindly.
 3. **Reproduce** — find the steps or trigger. If you can't reproduce, understand why from the code.
 4. **Investigate** — trace the code path. Read actual source, don't guess.
