@@ -3,6 +3,7 @@
 const fs = require("fs");
 const path = require("path");
 const os = require("os");
+const readline = require("readline");
 
 const SKILLS = [
   "osd-brainstorm",
@@ -21,6 +22,24 @@ const PLATFORMS = {
 };
 
 const ROOT = __dirname;
+
+function prompt(question) {
+  const rl = readline.createInterface({ input: process.stdin, output: process.stdout });
+  return new Promise((resolve) => rl.question(question, (a) => { rl.close(); resolve(a.trim()); }));
+}
+
+function detectExisting(skillsDir) {
+  const found = [];
+  for (const skill of SKILLS) {
+    const skillFile = path.join(skillsDir, skill, "SKILL.md");
+    if (fs.existsSync(skillFile)) {
+      const content = fs.readFileSync(skillFile, "utf-8");
+      const isOldFormat = /<!--\s*include:/.test(content) || /@shared\//.test(content);
+      found.push({ skill, old: isOldFormat });
+    }
+  }
+  return found;
+}
 
 function compileSkill(templatePath, platform) {
   const sharedDir = path.join(ROOT, "shared");
@@ -63,8 +82,11 @@ function compileSkill(templatePath, platform) {
   return out.join("\n");
 }
 
-function detectPlatforms(only) {
+async function install(only) {
+  let platforms;
+
   if (only) {
+    // Explicit platform argument
     if (!PLATFORMS[only]) {
       console.error(`Unknown platform: ${only}. Use: copilot, codex, claude`);
       process.exit(1);
@@ -74,24 +96,55 @@ function detectPlatforms(only) {
       console.error(`${only} not found (${parent} doesn't exist)`);
       process.exit(1);
     }
-    return { [only]: PLATFORMS[only] };
-  }
+    platforms = { [only]: PLATFORMS[only] };
+  } else {
+    // Auto-detect available platforms
+    const available = {};
+    for (const [name, skillsDir] of Object.entries(PLATFORMS)) {
+      const parent = path.dirname(skillsDir);
+      if (fs.existsSync(parent)) {
+        available[name] = skillsDir;
+      }
+    }
 
-  const found = {};
-  for (const [name, skillsDir] of Object.entries(PLATFORMS)) {
-    const parent = path.dirname(skillsDir);
-    if (fs.existsSync(parent)) {
-      found[name] = skillsDir;
+    if (Object.keys(available).length === 0) {
+      console.error("No AI CLIs detected. Install Copilot CLI, Codex CLI, or Claude Code first.");
+      process.exit(1);
+    }
+
+    // Interactive selection
+    const names = Object.keys(available);
+    console.log("Detected AI CLIs:\n");
+    names.forEach((name, i) => console.log(`  ${i + 1}) ${name}`));
+    console.log(`  ${names.length + 1}) all\n`);
+
+    const answer = await prompt(`Install to which? [1-${names.length + 1}]: `);
+    const choice = parseInt(answer, 10);
+
+    if (choice === names.length + 1 || answer.toLowerCase() === "all") {
+      platforms = available;
+    } else if (choice >= 1 && choice <= names.length) {
+      const picked = names[choice - 1];
+      platforms = { [picked]: available[picked] };
+    } else {
+      console.error("Invalid choice.");
+      process.exit(1);
     }
   }
-  return found;
-}
 
-function install(only) {
-  const platforms = detectPlatforms(only);
-  if (Object.keys(platforms).length === 0) {
-    console.error("No AI CLIs detected. Install Copilot CLI, Codex CLI, or Claude Code first.");
-    process.exit(1);
+  // Check for existing installations
+  for (const [platform, skillsDir] of Object.entries(platforms)) {
+    const existing = detectExisting(skillsDir);
+    if (existing.length > 0) {
+      const oldCount = existing.filter((e) => e.old).length;
+      const label = oldCount > 0
+        ? `${existing.length} skills (${oldCount} outdated)`
+        : `${existing.length} skills`;
+      console.log(`  ⚠ ${platform}: found ${label}. Overwriting...`);
+      for (const { skill } of existing) {
+        fs.rmSync(path.join(skillsDir, skill), { recursive: true });
+      }
+    }
   }
 
   for (const [platform, skillsDir] of Object.entries(platforms)) {
@@ -113,6 +166,11 @@ function install(only) {
 function uninstall(only) {
   const platforms = only ? { [only]: PLATFORMS[only] } : PLATFORMS;
 
+  if (only && !PLATFORMS[only]) {
+    console.error(`Unknown platform: ${only}. Use: copilot, codex, claude`);
+    process.exit(1);
+  }
+
   for (const [platform, skillsDir] of Object.entries(platforms)) {
     let count = 0;
     for (const skill of SKILLS) {
@@ -132,11 +190,12 @@ function usage() {
   console.log(`old-sdd — Spec-driven development skills for AI agents
 
 Usage:
-  npx old-sdd install [platform]     Install skills (auto-detects CLIs)
-  npx old-sdd uninstall [platform]   Remove all osd-* skills
-  npx old-sdd list                   Show installed skills
+  npx old-sdd install              Install skills (interactive platform selection)
+  npx old-sdd install <platform>   Install skills for a specific platform
+  npx old-sdd uninstall [platform] Remove all osd-* skills
+  npx old-sdd list                 Show installed skills
 
-Platforms: copilot, codex, claude (omit for auto-detect)`);
+Platforms: copilot, codex, claude`);
 }
 
 function list() {
@@ -161,21 +220,23 @@ const args = process.argv.slice(2);
 const command = args[0];
 const platform = args[1];
 
-switch (command) {
-  case "install":
-    console.log("old-sdd installer\n=================\n");
-    install(platform);
-    console.log("\nDone! Restart your agent CLI to load the new skills.");
-    break;
-  case "uninstall":
-    console.log("Removing old-sdd skills...\n");
-    uninstall(platform);
-    console.log("\nDone!");
-    break;
-  case "list":
-    list();
-    break;
-  default:
-    usage();
-    break;
-}
+(async () => {
+  switch (command) {
+    case "install":
+      console.log("old-sdd installer\n=================\n");
+      await install(platform);
+      console.log("\nDone! Restart your agent CLI to load the new skills.");
+      break;
+    case "uninstall":
+      console.log("Removing old-sdd skills...\n");
+      uninstall(platform);
+      console.log("\nDone!");
+      break;
+    case "list":
+      list();
+      break;
+    default:
+      usage();
+      break;
+  }
+})();
