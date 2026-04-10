@@ -179,8 +179,7 @@ Copy to `<docs-folder>/specs/YYYY-MM-DD-<topic>.md`. Don't commit separately —
 
 ## What Happens Next
 
-- **In a `/osd-build` pipeline** → activate skill `/osd-plan` for the plan phase
-- **Standalone** → suggest the user activate skill `/osd-plan` to create an implementation plan, or `/osd-build` for the full pipeline
+Get user approval, then activate skill `/osd-plan` to create an implementation plan.
 
 <!-- platform: codex -->
 <codex_adapter>
