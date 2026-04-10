@@ -5,7 +5,7 @@ description: "Use after implementation to verify quality — runs tests, linter,
 
 # Validate Phase
 
-Verify implementation quality and spec compliance. Find the spec in `docs/agents/specs/` (or `docs/superpowers/specs/`) or session context.
+Verify implementation quality and spec compliance. Find the spec in `docs/agents/specs/` (or `docs/superpowers/specs/`), or ask the user for its location.
 
 ## Process
 

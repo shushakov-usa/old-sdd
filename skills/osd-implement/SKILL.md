@@ -7,6 +7,8 @@ description: "Use when a plan exists and you're ready to write code. Executes ta
 
 Execute an implementation plan. Needs a plan file — look in `docs/agents/plans/` (or `docs/superpowers/plans/`) or ask the user. If no plan exists, suggest the user activate skill `/osd-plan` first.
 
+Also read the spec (referenced in the plan) for full context on what's being built.
+
 ## Testing
 
 Write tests alongside code. Prefer test-first: write a failing test, then make it pass. This catches mistakes early and proves your code actually works.
