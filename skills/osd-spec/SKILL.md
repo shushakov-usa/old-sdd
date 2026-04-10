@@ -7,7 +7,7 @@ description: "Use to explore ideas, gather requirements, and write a spec. Inter
 
 Explore what to build AND write the spec as you go. Decisions become spec sections immediately, so nothing is lost to context compaction.
 
-After the spec is committed, suggest the user activate skill `/osd-plan` to create an implementation plan, or `/osd-build` for the full pipeline.
+After the spec is done, suggest the user activate skill `/osd-plan` to create an implementation plan, or `/osd-build` for the full pipeline.
 
 ## Iron Law
 
@@ -161,16 +161,17 @@ If ANY fails, ask more questions. Show the checklist with what's missing.
 
 ## Transition Gate
 
-When the checklist passes, get user approval to commit the spec and move to planning.
+When the checklist passes, get user approval to move to planning.
 
-## Committing the Spec
+## Saving the Spec
+
+If the spec is worth keeping, save it to a permanent location:
 
 Detect the docs folder:
 1. If `docs/superpowers/` exists → use `docs/superpowers/specs/`
 2. Otherwise → use `docs/agents/specs/`
 
 ```bash
-# Copy from temp to permanent location
 cp /tmp/osd-spec-<topic>.md <docs-folder>/specs/YYYY-MM-DD-<topic>.md
 git add <docs-folder>/specs/YYYY-MM-DD-<topic>.md
 git commit  # match the project's existing commit style
