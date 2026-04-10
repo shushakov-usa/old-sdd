@@ -9,19 +9,28 @@ Verify implementation quality and spec compliance. Find the spec in `docs/agents
 
 ## Process
 
-### 1. Batch Baseline Checks
+### 1. Spec Compliance Check
 
-Run all baseline checks **in parallel** — they are independent:
+This is the primary validation. Walk through each section of the spec and verify the implementation matches:
+
+1. **Problem** — Does the implementation solve the stated problem?
+2. **Solution** — Does it match the described approach?
+3. **Behavior** — Does it handle the documented edge cases and error scenarios?
+4. **Validation Criteria** — Are all listed criteria met?
+
+Flag anything specced but not implemented, or implemented differently than specified. Tests passing is not enough — the code must deliver what was promised in the spec.
+
+### 2. Baseline Checks
+
+Run all checks **in parallel** — they are independent:
 
 - **Tests:** Run the project's test suite (including newly written tests)
 - **Linter:** Run the project's linter (if configured)
 - **Type checker:** Run the project's type checker (if configured)
 
-Dispatch these simultaneously. Report combined results.
+If any fail, fix the issues before proceeding.
 
-If any fail, fix the issues before proceeding. Loop back to the implement phase if code changes are needed.
-
-### 2. UI Verification
+### 3. UI Verification
 
 **Only when changes could affect UI.** The agent decides based on what files were modified.
 
@@ -48,17 +57,6 @@ If Playwright or a browser tool is available:
 - Test error messages for unhappy paths
 
 **UX quality is the top priority.** Not just "does it render" but "is it well-designed and intuitive."
-
-### 3. Spec Compliance Check
-
-Walk through each section of the spec:
-
-1. **Problem** — Does the implementation solve the stated problem?
-2. **Solution** — Does it match the described approach?
-3. **Behavior** — Does it handle the documented edge cases and error scenarios?
-4. **Validation Criteria** — Are all listed criteria met?
-
-Flag anything specced but not implemented, or implemented differently than specified.
 
 ### 4. Handle Results
 
