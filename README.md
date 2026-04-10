@@ -8,8 +8,7 @@ old-sdd is a set of markdown skills that teach your AI agent to explore requirem
 
 | Skill | When to Use |
 |-------|-------------|
-| `/osd-build` | New feature or major change — full pipeline |
-| `/osd-fix` | Bug reported or tests failing |
+| `/osd-build` | New feature, major change, or bug fix — full pipeline |
 | `/osd-spec` | Exploring ideas AND writing a spec interactively |
 | `/osd-plan` | Breaking a spec into parallelizable task waves |
 | `/osd-implement` | Executing a written plan with subagents |
@@ -54,14 +53,6 @@ The agent will:
 5. Implement using subagents where possible
 6. Validate with tests, lint, type checks, and UI verification
 
-### Fix a Bug
-
-```
-/osd-fix login fails with 500 error after password reset
-```
-
-Lighter flow: investigate the bug → plan a fix → implement with regression tests → validate.
-
 ### Individual Phases
 
 You can invoke any phase directly:
@@ -96,7 +87,7 @@ Uses `docs/superpowers/` instead if that directory already exists in the project
 
 ```
 cli.js           ← Node.js CLI (npx old-sdd install/uninstall/list)
-skills/          ← 6 self-contained SKILL.md files
+skills/          ← 5 self-contained SKILL.md files
 ```
 
 The installer handles platform-specific blocks (`<!-- platform: codex -->`) so each installed SKILL.md is fully self-contained with no external dependencies.

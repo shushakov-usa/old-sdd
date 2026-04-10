@@ -115,7 +115,7 @@ After 3 failed fix attempts on any task: stop, report what's wrong, and let the 
 ## What Happens Next
 
 After all tasks complete:
-- **In a `/osd-build` or `/osd-fix` pipeline** → activate skill `/osd-validate` for the validate phase
+- **In a `/osd-build` pipeline** → activate skill `/osd-validate` for the validate phase
 - **Standalone** → suggest the user activate skill `/osd-validate` to verify
 
 <!-- platform: codex -->
