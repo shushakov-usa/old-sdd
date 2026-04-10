@@ -42,7 +42,6 @@ function detectExisting(skillsDir) {
 }
 
 function compileSkill(templatePath, platform) {
-  const sharedDir = path.join(ROOT, "shared");
   const lines = fs.readFileSync(templatePath, "utf-8").split("\n");
   const out = [];
   let skip = false;
@@ -63,18 +62,6 @@ function compileSkill(templatePath, platform) {
     }
 
     if (skip) continue;
-
-    // Include expansion
-    const incMatch = line.match(/<!--\s*include:\s*(.+?)\s*-->/);
-    if (incMatch) {
-      const incPath = path.join(sharedDir, path.basename(incMatch[1]));
-      if (fs.existsSync(incPath)) {
-        out.push(fs.readFileSync(incPath, "utf-8").trimEnd());
-      } else {
-        out.push(`<!-- WARNING: missing include ${incMatch[1]} -->`);
-      }
-      continue;
-    }
 
     out.push(line);
   }
