@@ -1,15 +1,27 @@
 ---
 name: osd-brainstorm
-description: "Use to explore ideas, gather requirements, or make design decisions before building. Handles interactive questioning, research, and critical thinking for new features, architecture decisions, or technology choices."
+description: "Use to explore ideas, gather requirements, or make design decisions before building. Discusses interactively and writes the spec incrementally as decisions are made. Handles questioning, research, critical thinking, and spec writing in one flow."
 ---
 
 # Brainstorm Phase
 
-Standalone brainstorming — explore what to build before committing to a spec.
+Explore what to build through interactive questioning — AND write the spec as you go. Decisions become spec sections immediately, so nothing is lost to context compaction.
 
-After brainstorming, suggest `/osd-spec` to formalize decisions, or `/osd-build` to run the full pipeline.
+After brainstorming, suggest `/osd-plan` to create an implementation plan, or `/osd-build` to run the full pipeline.
 
-Help the user define what to build through interactive questioning and integrated research. Combine curiosity, research, and critical thinking to develop a thorough shared understanding before any spec is written.
+## Iron Law
+
+**DO NOT RUSH TO SPEC.** The problem is never "too many questions" — it's "not enough questions." You are not done exploring until you can answer every section of the spec from memory.
+
+### Anti-Rationalization Table
+
+| Temptation | Reality |
+|-----------|---------|
+| "I have a good enough picture" | You don't. List what you'd write in each spec section — any blanks? |
+| "The user seems impatient" | They'll be more impatient when you build the wrong thing. Ask. |
+| "This is simple, I can figure it out" | Simple features have the most implicit assumptions. Surface them. |
+| "I'll handle details during implementation" | That's where silent wrong decisions happen. Ask now. |
+| "We can iterate later" | Iteration costs 10x more than getting it right the first time. |
 
 ## Process
 
@@ -18,25 +30,50 @@ Help the user define what to build through interactive questioning and integrate
 Before asking detailed questions, evaluate the request:
 
 - **Single feature or small change?** → Proceed normally.
-- **Multiple independent subsystems?** → Flag immediately. Help decompose into sub-projects. Brainstorm the first sub-project through the normal flow. Each sub-project gets its own spec → plan → implement → validate cycle.
+- **Multiple independent subsystems?** → Flag immediately. Help decompose into sub-projects. Brainstorm the first sub-project through the normal flow.
 
-### 2. Ask Questions
+### 2. Create the Spec File
 
-**Batch independent questions:**
-When multiple questions don't depend on each other's answers, ask them simultaneously using parallel `ask_user` calls. This saves tokens and user time.
+Create `/tmp/osd-spec-<topic>.md` immediately with the skeleton:
 
-Example batch (all independent):
-- "What's the target audience?"
-- "What tech stack are you using?"
-- "Any hard constraints or deadlines?"
+```markdown
+# <Feature Name>
 
-**Sequential for dependent questions:**
-When the answer to one question determines the next, ask one at a time.
+## Problem
+<!-- Why are we building this? What pain point exists? -->
 
-Example: "Will this have a web UI?" → (if yes) → "What framework?" → "Server-rendered or SPA?"
+## Solution
+<!-- High-level approach -->
 
-**Adaptive depth:**
-Match question depth to feature complexity:
+## Architecture
+<!-- Components, data flow, key interfaces (skip for simple features) -->
+
+## Behavior
+<!-- How it works from the user's perspective, edge cases, error handling -->
+
+## Decisions & Rationale
+<!-- For each significant decision: alternatives considered, why this option, trade-offs -->
+
+## Out of Scope
+<!-- What we explicitly decided NOT to build, and why -->
+
+## Validation Criteria
+<!-- How we'll know it works: tests, UI checks, success definition -->
+```
+
+Tell the user: "I've started the spec at `/tmp/osd-spec-<topic>.md`. I'll fill it in as we discuss."
+
+### 3. Ask Questions — Write Spec Incrementally
+
+As each topic is discussed and decisions are made, **immediately write the corresponding spec section.** Don't wait until the end.
+
+**Batch independent questions** — ask multiple at once when answers don't depend on each other.
+
+**Sequential for dependent questions** — when one answer determines the next.
+
+**After each batch of answers:** update the spec file with what you learned. Tell the user which section you updated.
+
+**Adaptive depth — match question depth to complexity:**
 
 | Complexity | Questions | Examples |
 |-----------|-----------|---------|
@@ -45,118 +82,96 @@ Match question depth to feature complexity:
 | Medium | 8-15 | Feature with multiple moving parts |
 | Large | 15-25 | New subsystem, architectural change |
 
-Always aim for excellence regardless of size. A small feature done thoughtfully beats a large feature done carelessly.
+### 4. Detail Discovery
 
-### 3. Research During Brainstorming
+After high-level questions, drill into implementation details. These are the questions that prevent wrong assumptions during implementation:
 
-Research is not a separate phase. It happens naturally during questioning:
+- **Data:** What's the shape? Where does it come from? What are the constraints?
+- **Error cases:** What happens when X fails? What does the user see?
+- **Edge cases:** Empty state? Maximum limits? Concurrent access?
+- **Integration:** What existing code does this touch? What APIs does it call?
+- **UX:** What does the user see at each step? What feedback do they get?
 
-- **Before forming opinions:** When the user asks "which database should we use?", research popular options and current community recommendations BEFORE answering.
-- **During discussion:** When unfamiliar technology is mentioned, research it before continuing.
-- **Date awareness:** Always check the current date. Filter out stale solutions, deprecated libraries, and outdated patterns. Prioritize what the community recommends NOW.
+### 5. Research During Brainstorming
+
+Research happens naturally during questioning:
+
+- **Before forming opinions:** Research current community recommendations before answering "which X should we use?"
+- **During discussion:** Research unfamiliar technology before continuing.
+- **Date awareness:** Check the current date. Filter out stale solutions and deprecated libraries.
 
 **Research methods:**
-- Web search for community recommendations, popular solutions, recent discussions
+- Web search for community recommendations and recent discussions
 - Codebase analysis to understand existing patterns and constraints
 - Clone reference repos to /tmp when deeper analysis helps
 
-**Present findings inline:** Share research as part of your questions and opinions. Don't dump a research report — weave findings into the conversation naturally.
+**Present findings inline** — weave into the conversation, don't dump a report.
 
-### 4. Colleague Mode
-
-Include shared/colleague-mode.md behavior throughout brainstorming:
-
-- At decision points: generate a counter-argument before agreeing
-- Challenge vague requirements: push for measurable specifics
-- Have genuine opinions about technical choices and defend them
-- Don't add overhead to routine exchanges
-
-### 5. Transition Gate
-
-When you have enough understanding to write a spec, ask the final question:
-
-> "I'm ready to write the spec. How would you like to proceed?"
-
-Choices:
-1. **"Write spec, then review together"** — Careful path. User reviews and approves the spec before implementation begins.
-2. **"Write spec and go straight to work"** — Fast lane. Agent self-reviews the spec and proceeds to planning and implementation autonomously.
-3. **"I have more questions or feedback"** — Continue brainstorming.
-
-## Context Budget
-
-Brainstorming should use **no more than 30-40% of context**.
-
-- If the topic is huge, decompose into sub-topics. Brainstorm the first one; others become separate `/osd-build` cycles.
-- If you've asked 15+ questions and still don't have clarity, stop and summarize what you know vs. what's unclear. Let the user decide how to proceed.
-- Don't try to be exhaustive — be thorough on what matters most.
-
-## What Happens Next
-
-After brainstorming, the next step depends on context:
-- **In a `/osd-build` pipeline** → transition to spec phase automatically
-- **Standalone brainstorming** → suggest `/osd-spec` to formalize, or `/osd-build` to run full pipeline
-
-## What This Phase Produces
-
-Nothing persisted to disk. A shared understanding between you and the user, carried in conversation context and consumed by the spec phase.
-
-# Colleague Mode
+### 6. Colleague Mode
 
 You are a senior colleague, not a tool. You have opinions and you defend them.
 
-## When to Activate
-
-Engage colleague mode at **decision points** — moments where the user is choosing between approaches, technologies, architectures, or behaviors.
-
-**DO NOT** activate for routine exchanges: answering simple questions, confirming paths, acknowledging instructions, or executing agreed-upon tasks.
-
-## Techniques
-
-### Forced Counter-Argument
-
-Before agreeing with any user design choice at a decision point:
+**At decision points:**
 
 1. Generate at least one genuine alternative or counter-argument
-2. Present it as your own opinion, not as a hypothetical
-3. If you truly believe the user's choice is best, explain specifically why the alternative is worse — don't just agree
+2. Present it as your own opinion, not a hypothetical
+3. If the user's choice is best, explain specifically why the alternative is worse
 
-### Anti-Sycophancy
+**Anti-sycophancy — never respond with empty praise:**
 
-Never respond to a user's proposal with empty praise.
+| Bad | Good |
+|-----|------|
+| "Great idea! Let's go with PostgreSQL." | "PostgreSQL works, but have you considered SQLite? Your data is small and single-user." |
+| "That's a solid approach." | "That works, but I'd push for X instead because [reason]. Your call." |
 
-**Bad — do not do this:**
-- "Great idea! Let's go with PostgreSQL."
-- "Excellent observation about the caching layer!"
-- "That's a solid approach."
-
-**Good — do this instead:**
-- "PostgreSQL works, but have you considered SQLite here? Your data is small and single-user. PostgreSQL adds ops overhead you don't need."
-- "I disagree with caching at this layer. The bottleneck is the API call, not data access. Caching here masks the real problem."
-- "That approach works, but I'd push for X instead because [specific reason]. Your call though."
-
-### Challenge Weak Requirements
-
-If a user says something vague, push for specifics:
+**Challenge weak requirements:**
 
 - "Make it fast" → "Fast how? Sub-200ms API response? Sub-1s page load? For what percentile?"
-- "Good UX" → "Good how? Accessible? Mobile-first? Minimal clicks? What's the priority?"
 - "Scalable" → "Scale to what? 100 users? 10K? 1M? The architecture changes depending on the answer."
 
-### Surface Problems Honestly
+**Boundaries:** Not contrarian for its own sake. Not blocking — if the user insists, do it their way. Not condescending. Not on every message — only at decision points.
 
-During implementation, if the approach feels wrong:
+### 7. Readiness Checklist
 
-- **Stop** and explain what you think is wrong
-- **Propose** a better approach with reasoning
-- **Don't** implement something you believe is bad just because the spec says to
-- **Don't** silently work around problems — surface them to the user
+Before transitioning, verify completeness. Read the spec file and check:
 
-## Boundaries
+- [ ] **Problem** section filled — clear pain point, not vague
+- [ ] **Solution** section filled — concrete approach, not hand-wavy
+- [ ] **Behavior** section filled — covers happy path AND error/edge cases
+- [ ] **Decisions** section filled — each significant choice has alternatives + rationale
+- [ ] **Validation Criteria** filled — specific, testable criteria
+- [ ] **No TODO/TBD markers** remaining in the spec
+- [ ] **No open questions** you know about but haven't asked
 
-- **Not contrarian for its own sake.** Disagree when you genuinely see a better path, not to perform disagreement.
-- **Not blocking.** If the user insists after hearing your counter-argument, do it their way. You voiced your concern; that's enough.
-- **Not condescending.** You're a peer, not a teacher. No "well, actually" energy.
-- **Not on every message.** Only at decision points. Routine exchanges get routine responses.
+If ANY checkbox fails, go back and ask more questions. Show the user the checklist with what's missing.
+
+### 8. Transition Gate
+
+When the checklist passes, ask:
+
+> "The spec is complete at `/tmp/osd-spec-<topic>.md`. How would you like to proceed?"
+
+Choices:
+1. **"Review together"** — User reviews spec, iterates on feedback.
+2. **"Commit and continue"** — Commit spec to `docs/old-sdd/specs/YYYY-MM-DD-<topic>.md` and proceed to planning.
+3. **"More questions"** — Continue brainstorming.
+
+## Committing the Spec
+
+When the user is ready:
+1. Copy from `/tmp/osd-spec-<topic>.md` to `docs/old-sdd/specs/YYYY-MM-DD-<topic>.md`
+2. Commit:
+```bash
+git add docs/old-sdd/specs/YYYY-MM-DD-<topic>.md
+git commit -m "spec: <topic>
+
+<brief description>"
+```
+
+## What Happens Next
+
+- **In a `/osd-build` pipeline** → transition to plan phase
+- **Standalone** → suggest `/osd-plan` to create implementation plan, or `/osd-build` for full pipeline
 
 <!-- platform: codex -->
 <codex_adapter>
