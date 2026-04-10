@@ -5,9 +5,7 @@ description: "Use to build a new feature, component, or subsystem from scratch. 
 
 # Build — Feature Development Pipeline
 
-Full lifecycle: brainstorm → plan → implement → validate.
-
-If context pressure builds before planning completes, checkpoint and suggest the user continue with `/osd-plan` in a fresh session.
+Full lifecycle: spec → plan → implement → validate.
 
 # Build Flow — Feature Development Orchestrator
 
