@@ -7,22 +7,6 @@ description: "Use after implementation to verify quality — runs tests, linter,
 
 Verify implementation quality and spec compliance. Find the spec in `docs/agents/specs/` (or `docs/superpowers/specs/`) or session context.
 
-## Iron Law
-
-**NO COMPLETION CLAIMS WITHOUT FRESH VERIFICATION EVIDENCE.** Run the actual checks. Read the actual output. "It should work" is not evidence.
-
-### Anti-Rationalization Table
-
-| Temptation | Reality |
-|-----------|---------|
-| "Tests passed earlier" | Code changed since then. Run them again. |
-| "I wrote the code correctly" | Prove it. Run the tests. Show the output. |
-| "The linter would have caught that" | Did you run the linter? Show the output. |
-| "This change is too small to break anything" | Small changes break big systems. Verify. |
-| "I checked manually" | Manual checks miss things. Run automated checks AND manual verification. |
-
-Verify the implementation works and matches the spec.
-
 ## Process
 
 ### 1. Batch Baseline Checks
@@ -74,49 +58,25 @@ Walk through each section of the spec:
 3. **Behavior** — Does it handle the documented edge cases and error scenarios?
 4. **Validation Criteria** — Are all listed criteria met?
 
-Flag anything that was specced but not implemented, or implemented differently than specified.
+Flag anything specced but not implemented, or implemented differently than specified.
 
-### 4. Report Results
-
-**All pass:**
-Report success with a brief summary of what was validated.
-
-**Test/lint/type failures:**
-Loop back to implement phase. Fix the issues, re-validate.
-
-**Spec compliance gaps:**
-Surface the gap to the user. Options:
-- Implement the missing part (loop to implement)
-- Update the spec to reflect reality (if the change was intentional)
-
-**Design-level failure:**
-If the implementation fundamentally doesn't achieve the spec's goals, this isn't a test fix — it's a plan or spec issue. Escalate to the user.
-
-## Be Honest
-
-During validation:
-- If tests pass but the implementation feels fragile, say so
-- If the UI works but the UX is poor, flag it
-- Don't rubber-stamp "all green" if you have concerns about quality
-
-## Escalation Rules
+### 4. Handle Results
 
 | Result | Action |
 |--------|--------|
-| Tests fail | Fix → re-validate (loop to implement) |
-| Lint/type errors | Fix inline → re-run |
-| Spec gap: minor | Implement missing part |
-| Spec gap: major | Ask user: implement or update spec? |
+| All checks pass | Done — report what was validated |
+| Tests / lint / type failures | Fix → re-validate |
+| Minor spec gap | Implement the missing part |
+| Major spec gap | Ask user: implement or update spec? |
 | UI broken | Fix → re-validate |
-| Design-level failure | **STOP** — escalate to user |
+| Design-level failure | **STOP** — escalate to user (plan or spec issue, not a code fix) |
 
-**Design-level failure** = the implementation fundamentally doesn't achieve the spec's goals. This isn't a test fix — it's a plan or spec issue.
+If the implementation feels fragile or the UX is poor even though tests pass — say so.
 
 ## What Happens Next
 
-- **All pass** → Done! Report success with brief summary of what was validated.
-- **Failures** → Fix loop until clean.
-- **In a pipeline** → validation passing = pipeline complete.
+- **All pass** → Done! Report what was validated.
+- **Failures** → Fix and re-validate until clean.
 
 <!-- platform: codex -->
 <codex_adapter>
