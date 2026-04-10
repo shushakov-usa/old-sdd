@@ -7,13 +7,13 @@ description: "Use after a spec is written to break requirements into executable 
 
 Break a spec into executable tasks. Needs a spec — check session context, then `docs/agents/specs/` (or `docs/superpowers/specs/`), then ask the user. If no spec exists, suggest the user activate skill `/osd-spec` first.
 
-Detect the docs folder (if `docs/superpowers/` exists → use it, otherwise → `docs/agents/`). Produces `<docs-folder>/plans/YYYY-MM-DD-<topic>.md` — committed alongside the spec. After planning, suggest the user activate skill `/osd-implement`.
-
 Break the spec into executable tasks grouped into parallelizable waves.
 
 ## Plan Location
 
-`<docs-folder>/plans/YYYY-MM-DD-<topic>.md` — committed alongside the spec.
+Detect the docs folder: if `docs/superpowers/` exists → use it, otherwise → `docs/agents/`.
+
+Save the plan to `<docs-folder>/plans/YYYY-MM-DD-<topic>.md`.
 
 ## Plan Format
 
@@ -125,7 +125,7 @@ The implementing agent uses these hints to select models (e.g., `claude-haiku-4.
 3. **Map dependencies** — What depends on what?
 4. **Group into waves** — Independent tasks in the same wave.
 5. **Add model hints** — Cheap vs standard for each task.
-6. **Write plan** — Save to `<docs-folder>/plans/YYYY-MM-DD-<topic>.md` and commit.
+6. **Write plan** — Save to `<docs-folder>/plans/YYYY-MM-DD-<topic>.md`.
 
 ## Self-Check
 
@@ -136,9 +136,7 @@ Before finishing the plan, verify:
 
 ## What Happens Next
 
-After the plan is written:
-- **In a `/osd-build` pipeline** → activate skill `/osd-implement` for the implement phase
-- **Standalone** → suggest the user activate skill `/osd-implement` to execute the plan
+Get user approval, then activate skill `/osd-implement` to execute the plan.
 
 <!-- platform: codex -->
 <codex_adapter>
