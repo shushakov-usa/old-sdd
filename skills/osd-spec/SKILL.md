@@ -154,21 +154,14 @@ Before transitioning, read the spec file and verify:
 
 If ANY fails, ask more questions. Show the checklist with what's missing.
 
-When everything passes, get user approval to move to planning.
+## Wrap Up
 
-## Saving the Spec
+When the checklist passes:
 
-Ask the user whether to save the spec to the project. For features, recommend saving. For bug fixes and small changes, mention it's optional.
-
-If yes, detect the docs folder:
-1. If `docs/superpowers/` exists → use `docs/superpowers/specs/`
-2. Otherwise → use `docs/agents/specs/`
-
-Copy to `<docs-folder>/specs/YYYY-MM-DD-<topic>.md`.
-
-## What Happens Next
-
-Get user approval, then activate skill `/osd-plan` to create an implementation plan.
+1. Show the checklist results to the user.
+2. Ask whether to save the spec to the project. For features, recommend saving. For bug fixes and small changes, mention it's optional.
+   - If yes: save to `docs/specs/YYYY-MM-DD-<topic>.md`. If specs already exist elsewhere in the project (e.g., `docs/agents/specs/`), use that path instead.
+3. Get user approval, then activate skill `/osd-plan` to create an implementation plan.
 
 <!-- platform: codex -->
 <codex_adapter>
