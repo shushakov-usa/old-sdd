@@ -7,6 +7,20 @@ description: "Use when something is broken — bugs, test failures, errors, cras
 
 Understand → plan → implement → validate. No spec needed — the fix and its regression test are the deliverable.
 
+## Iron Law
+
+**NO FIXES WITHOUT ROOT CAUSE INVESTIGATION FIRST.** Understand WHY the bug happens before writing a single line of fix code. Fixing symptoms creates new bugs.
+
+### Anti-Rationalization Table
+
+| Temptation | Reality |
+|-----------|---------|
+| "The fix is obvious" | Obvious fixes for non-obvious causes create new bugs. Verify the cause. |
+| "I can see exactly what's wrong in the code" | Can you explain WHY it's wrong? What assumption failed? What else shares that assumption? |
+| "Let me just try this quick fix" | Quick fixes that work by coincidence break under different conditions. |
+| "The user told me what's wrong" | The user told you the symptom. The cause may be elsewhere. Verify independently. |
+| "I've seen this pattern before" | This codebase may be different. Read the actual code, don't assume. |
+
 # Fix Flow — Bug Fix Orchestrator
 
 You are running a four-phase pipeline. Activate each skill, follow its procedure, then ask the user before moving on.

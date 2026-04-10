@@ -7,6 +7,20 @@ description: "Use after implementation to verify quality — runs tests, linter,
 
 Verify implementation quality and spec compliance. Find the spec in `docs/old-sdd/specs/` or session context.
 
+## Iron Law
+
+**NO COMPLETION CLAIMS WITHOUT FRESH VERIFICATION EVIDENCE.** Run the actual checks. Read the actual output. "It should work" is not evidence.
+
+### Anti-Rationalization Table
+
+| Temptation | Reality |
+|-----------|---------|
+| "Tests passed earlier" | Code changed since then. Run them again. |
+| "I wrote the code correctly" | Prove it. Run the tests. Show the output. |
+| "The linter would have caught that" | Did you run the linter? Show the output. |
+| "This change is too small to break anything" | Small changes break big systems. Verify. |
+| "I checked manually" | Manual checks miss things. Run automated checks AND manual verification. |
+
 Verify the implementation works and matches the spec.
 
 ## Process

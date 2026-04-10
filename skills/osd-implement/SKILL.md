@@ -9,6 +9,20 @@ Execute an implementation plan. Needs a plan file — look in `docs/old-sdd/plan
 
 After all tasks complete, suggest `/osd-validate` to verify.
 
+## Iron Law
+
+**NO CODE WITHOUT A FAILING TEST FIRST.** Write the test, watch it fail, then write the code that makes it pass. No exceptions.
+
+### Anti-Rationalization Table
+
+| Temptation | Reality |
+|-----------|---------|
+| "This is too simple to need a test" | Simple code breaks too. The test takes 30 seconds. Write it. |
+| "I'll add tests after" | You won't. And without a failing test, you don't know if your code actually works. |
+| "The existing tests cover this" | Do they? Run them. If none fail when you break the new code, you need a new test. |
+| "This is just a refactor, no new behavior" | Then existing tests should still pass. Run them first. If they don't cover the refactored path, add tests. |
+| "Testing this requires too much setup" | That's a design smell. Simplify the interface or use dependency injection. |
+
 Execute the plan. This is where code gets written.
 
 ## Process
@@ -68,6 +82,9 @@ Do not defer test writing to a later phase.
 
 Things won't always go according to plan.
 
+**Undiscussed details — ASK, don't decide:**
+If you encounter something not covered in the spec — an edge case, a UX decision, an integration detail — **STOP and ask the user.** Do not make silent decisions. The spec exists to capture decisions; gaps in the spec are questions, not permissions to decide alone.
+
 **Minor deviation** (implementation detail differs from plan):
 - Proceed with the better approach
 - Note the deviation in the commit message
@@ -100,13 +117,6 @@ During implementation:
 | **Blocked** — can't proceed | **STOP** after 3 attempts | 3 attempts |
 
 After 3 failed fix attempts on any task: stop, report what's wrong, and let the user decide.
-
-## Context Budget
-
-Implementation consumes the most context because of subagent dispatch overhead. The orchestrator should:
-- Track task completion state concisely
-- Pass only relevant context to subagents (not full spec)
-- If 60%+ tasks done and context is pressured, commit progress and suggest re-invoking `/osd-implement`
 
 ## What Happens Next
 
