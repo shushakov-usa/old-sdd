@@ -51,7 +51,16 @@ Each task = one commit. Each commit includes:
 - Tests for that code
 - A clear commit message matching the project's existing commit style
 
-### 5. Deviation Handling
+### 5. Run Checks
+
+After all tasks are done, run the project's checks:
+- **Tests** (full suite, including newly written tests)
+- **Linter** (if configured)
+- **Type checker** (if configured)
+
+Fix any failures before moving to validation.
+
+### 6. Deviation Handling
 
 Things won't always go according to plan.
 
