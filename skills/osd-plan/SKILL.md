@@ -27,12 +27,6 @@ Independent tasks can run in parallel. If unsure whether tasks are independent, 
 
 ## Task Granularity
 
-Each task should:
-- Produce a self-contained, working change
-- Include both code and tests for that code
-- Be committable on its own
-- Take a capable agent 5-15 minutes
-
 ### Good vs Bad Tasks
 
 **Bad — too vague:**
