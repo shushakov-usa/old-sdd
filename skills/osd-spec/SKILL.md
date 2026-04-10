@@ -41,7 +41,7 @@ Combine both: a vague feature gets the full pipeline; a clear bug fix gets 2-3 q
 
 ## Spec File
 
-Create `/tmp/osd-spec-<topic>.md` at the start with a skeleton. Fill sections as understanding forms.
+Create `/tmp/osd-<topic>/spec.md` at the start with a skeleton. Fill sections as understanding forms.
 
 ### Spec Template
 

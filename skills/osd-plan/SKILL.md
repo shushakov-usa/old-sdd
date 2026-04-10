@@ -13,7 +13,7 @@ Break the spec into executable tasks.
 
 Save the plan next to the spec:
 - If the spec is in the project (`docs/agents/specs/` or `docs/superpowers/specs/`) → save to the corresponding `plans/` folder
-- If the spec is in `/tmp/` → save to `/tmp/osd-plan-<topic>.md`
+- If the spec is in `/tmp/osd-<topic>/` → save to `/tmp/osd-<topic>/plan.md`
 
 ## Plan Format
 
@@ -86,7 +86,7 @@ The implementing agent uses these hints to select models (e.g., `claude-haiku-4.
 2. **List all tasks** — What concrete changes are needed?
 3. **Map dependencies** — What depends on what? What can run in parallel?
 4. **Add model hints** — Cheap vs standard for each task.
-5. **Write plan** — Save to `/tmp/osd-plan-<topic>.md`.
+5. **Write plan** — Save next to the spec.
 
 ## Self-Check
 
