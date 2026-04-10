@@ -5,9 +5,9 @@ description: "Use when a plan exists and you're ready to write code. Executes ta
 
 # Implement Phase
 
-Execute an implementation plan. Needs a plan file — look in `docs/agents/plans/` (or `docs/superpowers/plans/`) or ask the user. If no plan exists, suggest `/osd-plan` first.
+Execute an implementation plan. Needs a plan file — look in `docs/agents/plans/` (or `docs/superpowers/plans/`) or ask the user. If no plan exists, suggest the user activate skill `/osd-plan` first.
 
-After all tasks complete, suggest `/osd-validate` to verify.
+After all tasks complete, suggest the user activate skill `/osd-validate` to verify.
 
 ## Iron Law
 
@@ -115,8 +115,8 @@ After 3 failed fix attempts on any task: stop, report what's wrong, and let the 
 ## What Happens Next
 
 After all tasks complete:
-- **In a `/osd-build` or `/osd-fix` pipeline** → transition to validate phase automatically
-- **Standalone** → suggest `/osd-validate` to verify
+- **In a `/osd-build` or `/osd-fix` pipeline** → activate skill `/osd-validate` for the validate phase
+- **Standalone** → suggest the user activate skill `/osd-validate` to verify
 
 <!-- platform: codex -->
 <codex_adapter>

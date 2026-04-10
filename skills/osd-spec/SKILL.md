@@ -7,7 +7,7 @@ description: "Use to explore ideas, gather requirements, and write a spec. Inter
 
 Explore what to build AND write the spec as you go. Decisions become spec sections immediately, so nothing is lost to context compaction.
 
-After the spec is committed, suggest `/osd-plan` to create an implementation plan, or `/osd-build` for the full pipeline.
+After the spec is committed, suggest the user activate skill `/osd-plan` to create an implementation plan, or `/osd-build` for the full pipeline.
 
 ## Iron Law
 
@@ -185,8 +185,8 @@ git commit  # match the project's existing commit style
 
 ## What Happens Next
 
-- **In a `/osd-build` pipeline** → transition to plan phase
-- **Standalone** → suggest `/osd-plan` to create implementation plan, or `/osd-build` for full pipeline
+- **In a `/osd-build` pipeline** → activate skill `/osd-plan` for the plan phase
+- **Standalone** → suggest the user activate skill `/osd-plan` to create an implementation plan, or `/osd-build` for the full pipeline
 
 <!-- platform: codex -->
 <codex_adapter>

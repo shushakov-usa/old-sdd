@@ -5,9 +5,9 @@ description: "Use after a spec is written to break requirements into executable 
 
 # Plan Phase
 
-Break a spec into executable tasks. Needs a spec — check session context, then `docs/agents/specs/` (or `docs/superpowers/specs/`), then ask the user. If no spec exists, suggest `/osd-spec` first.
+Break a spec into executable tasks. Needs a spec — check session context, then `docs/agents/specs/` (or `docs/superpowers/specs/`), then ask the user. If no spec exists, suggest the user activate skill `/osd-spec` first.
 
-Detect the docs folder (if `docs/superpowers/` exists → use it, otherwise → `docs/agents/`). Produces `<docs-folder>/plans/YYYY-MM-DD-<topic>.md` — committed alongside the spec. After planning, suggest `/osd-implement`.
+Detect the docs folder (if `docs/superpowers/` exists → use it, otherwise → `docs/agents/`). Produces `<docs-folder>/plans/YYYY-MM-DD-<topic>.md` — committed alongside the spec. After planning, suggest the user activate skill `/osd-implement`.
 
 Break the spec into executable tasks grouped into parallelizable waves.
 
@@ -137,8 +137,8 @@ Before finishing the plan, verify:
 ## What Happens Next
 
 After the plan is written:
-- **In a `/osd-build` pipeline** → transition to implement phase automatically
-- **Standalone** → suggest `/osd-implement` to execute the plan
+- **In a `/osd-build` pipeline** → activate skill `/osd-implement` for the implement phase
+- **Standalone** → suggest the user activate skill `/osd-implement` to execute the plan
 
 <!-- platform: codex -->
 <codex_adapter>

@@ -10,10 +10,10 @@ Each phase is a skill — activate it, follow its procedure, then ask the user b
 
 ## Pipeline
 
-1. **Spec** → `/osd-spec`. When done → ask: "Spec committed. Ready to plan?"
-2. **Plan** → `/osd-plan`. When done → ask: "Plan ready. Start implementing?"
-3. **Implement** → `/osd-implement`. When done → ask: "Implementation complete. Run validation?"
-4. **Validate** → `/osd-validate`. On success → done. On failure → loop back to implement (or plan if the plan was wrong).
+1. **Spec** → activate skill `/osd-spec`. When done → ask: "Spec committed. Ready to plan?"
+2. **Plan** → activate skill `/osd-plan`. When done → ask: "Plan ready. Start implementing?"
+3. **Implement** → activate skill `/osd-implement`. When done → ask: "Implementation complete. Run validation?"
+4. **Validate** → activate skill `/osd-validate`. On success → done. On failure → loop back to implement (or plan if the plan was wrong).
 
 ## Rules
 
