@@ -11,7 +11,9 @@ Break the spec into executable tasks.
 
 ## Plan Location
 
-Save the plan to `/tmp/osd-plan-<topic>.md`.
+Save the plan next to the spec:
+- If the spec is in the project (`docs/agents/specs/` or `docs/superpowers/specs/`) → save to the corresponding `plans/` folder
+- If the spec is in `/tmp/` → save to `/tmp/osd-plan-<topic>.md`
 
 ## Plan Format
 
