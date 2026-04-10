@@ -22,8 +22,8 @@ Each phase is a skill — activate it, follow its procedure, then ask the user b
 
 <!-- platform: codex -->
 <codex_adapter>
-Before interactive questioning, check if Codex is in suggest mode:
-- If suggest mode: batch all questions into a single structured response. Do not use interactive ask_user.
-- If full-auto mode: proceed normally with interactive questioning.
+Codex interaction depends on the mode:
+- **Plan mode** (ask_user_question tool available): batch related questions into one structured questionnaire with choices.
+- **Any other mode** (text only): ask one question at a time. Wait for the answer before asking the next.
 </codex_adapter>
 <!-- /platform: codex -->
