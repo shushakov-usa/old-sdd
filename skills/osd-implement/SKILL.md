@@ -61,13 +61,7 @@ When dispatching a subagent, provide:
 Each task = one commit. Each commit includes:
 - The implementation code
 - Tests for that code
-- A clear commit message referencing the feature
-
-```
-feat(<scope>): <what this task does>
-
-Part of <feature name>. <Brief description of what was implemented.>
-```
+- A clear commit message matching the project's existing commit style
 
 ### 5. Tests as Part of Implementation
 
@@ -96,11 +90,11 @@ If you encounter something not covered in the spec — an edge case, a UX decisi
 - Wait for user direction
 
 **Problem discovered during implementation:**
-- Apply colleague-mode: surface the problem honestly
+- Surface the problem honestly
 - Don't implement a workaround for a design flaw
 - Propose fixing the root cause
 
-## Colleague Mode
+## Quality Standards
 
 During implementation:
 - Don't take shortcuts. If the "easy" solution is worse, do the right thing.

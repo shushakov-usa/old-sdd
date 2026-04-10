@@ -27,7 +27,7 @@ You are running a four-phase pipeline. Each phase is a skill — activate it, fo
 1. **Always present the next phase.** After completing a phase, tell the user what you did and ask to proceed. Never silently stop without mentioning remaining phases.
 2. **Do not skip phases.** Even simple features go through all four.
 3. **Loop on failure.** Validation fails → implement again. Plan was wrong → replan. Spec was wrong → surface to user.
-4. **Colleague mode throughout.** Challenge decisions, surface problems, don't rubber-stamp.
+4. **Be honest throughout.** Challenge decisions, surface problems, don't rubber-stamp.
 
 <!-- platform: codex -->
 <codex_adapter>

@@ -127,9 +127,9 @@ The implementing agent uses these hints to select models (e.g., `claude-haiku-4.
 5. **Add model hints** — Cheap vs standard for each task.
 6. **Write plan** — Save to `<docs-folder>/plans/YYYY-MM-DD-<topic>.md` and commit.
 
-## Colleague Mode
+## Self-Check
 
-During planning, apply colleague-mode:
+Before finishing the plan, verify:
 - Is the task decomposition sensible? Are tasks too large or too small?
 - Are there tasks that should be parallel but aren't?
 - Does the plan actually achieve the spec's goals, or does it miss something?

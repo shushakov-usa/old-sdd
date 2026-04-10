@@ -92,9 +92,9 @@ Surface the gap to the user. Options:
 **Design-level failure:**
 If the implementation fundamentally doesn't achieve the spec's goals, this isn't a test fix — it's a plan or spec issue. Escalate to the user.
 
-## Colleague Mode
+## Be Honest
 
-During validation, be honest:
+During validation:
 - If tests pass but the implementation feels fragile, say so
 - If the UI works but the UX is poor, flag it
 - Don't rubber-stamp "all green" if you have concerns about quality

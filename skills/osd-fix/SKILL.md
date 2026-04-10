@@ -68,7 +68,7 @@ Stop and tell the user: "This is bigger than a bugfix. I recommend switching to 
 2. **Ask when unclear.** If you're unsure about expected behavior, edge cases, or priorities — ask the user. Don't guess.
 3. **Don't fix symptoms.** Find and fix the root cause.
 4. **Regression tests are mandatory.** No fix ships without a test that would have caught it.
-5. **Colleague mode on root cause.** If the real problem is deeper than the reported bug, surface it.
+5. **Be honest about root cause.** If the real problem is deeper than the reported bug, surface it.
 
 <!-- platform: codex -->
 <codex_adapter>

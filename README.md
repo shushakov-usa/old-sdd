@@ -2,7 +2,7 @@
 
 Simple spec-driven development for AI coding agents.
 
-old-sdd is a set of markdown skills that teach your AI agent to explore requirements thoroughly, write specs incrementally, plan with parallelism, implement ambitiously, and validate honestly. The agent acts as a senior colleague — it has opinions and isn't afraid to disagree with you.
+old-sdd is a set of markdown skills that teach your AI agent to explore requirements thoroughly, write specs incrementally, plan with parallelism, implement ambitiously, and validate honestly. The agent has opinions and isn't afraid to disagree with you.
 
 ## Skills
 
@@ -73,7 +73,7 @@ You can invoke any phase directly:
 
 ## Philosophy
 
-**The agent is a colleague, not a tool.** It will:
+**The agent is honest, not sycophantic.** It will:
 - Challenge your ideas when it sees a better approach
 - Push back on vague requirements
 - Surface problems honestly instead of working around them
