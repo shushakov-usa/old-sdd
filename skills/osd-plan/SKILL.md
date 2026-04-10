@@ -1,13 +1,13 @@
 ---
 name: osd-plan
-description: "Use after a spec is written to break requirements into executable tasks. Creates wave-based task decomposition with dependency tracking, model hints, and parallel execution groups."
+description: "Use after a spec is written to break requirements into executable tasks with dependency tracking and model hints."
 ---
 
 # Plan Phase
 
 Break a spec into executable tasks. Needs a spec — check session context, then `docs/agents/specs/` (or `docs/superpowers/specs/`), then ask the user. If no spec exists, suggest the user activate skill `/osd-spec` first.
 
-Break the spec into executable tasks grouped into parallelizable waves.
+Break the spec into executable tasks.
 
 ## Plan Location
 
