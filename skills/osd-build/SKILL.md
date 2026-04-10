@@ -6,24 +6,19 @@ description: "Use to build a new feature, component, or subsystem from scratch. 
 # Build — Feature Development Pipeline
 
 Full lifecycle: spec → plan → implement → validate.
-
-You are running a four-phase pipeline. Each phase is a skill — activate it, follow its procedure, then ask the user before moving on.
-
-**After each phase, ask the user before proceeding to the next one.** Do not silently stop. Do not silently continue.
+Each phase is a skill — activate it, follow its procedure, then ask the user before moving on.
 
 ## Pipeline
 
-1. **Spec** → activate `/osd-spec`. This phase explores requirements AND writes the spec incrementally. When done → ask: "Spec committed. Ready to create the implementation plan?"
-2. **Plan** → activate `/osd-plan`. When done → ask: "Plan ready. Start implementing?"
-3. **Implement** → activate `/osd-implement`. When done → ask: "Implementation complete. Run validation?"
-4. **Validate** → activate `/osd-validate`. On success → done. On failure → loop back to implement (or plan if the plan was wrong).
+1. **Spec** → `/osd-spec`. When done → ask: "Spec committed. Ready to plan?"
+2. **Plan** → `/osd-plan`. When done → ask: "Plan ready. Start implementing?"
+3. **Implement** → `/osd-implement`. When done → ask: "Implementation complete. Run validation?"
+4. **Validate** → `/osd-validate`. On success → done. On failure → loop back to implement (or plan if the plan was wrong).
 
 ## Rules
 
-1. **Always present the next phase.** After completing a phase, tell the user what you did and ask to proceed. Never silently stop without mentioning remaining phases.
-2. **Do not skip phases.** Even simple features go through all four.
-3. **Loop on failure.** Validation fails → implement again. Plan was wrong → replan. Spec was wrong → surface to user.
-4. **Be honest throughout.** Challenge decisions, surface problems, don't rubber-stamp.
+1. **Do not skip phases.** Even simple features go through all four.
+2. **Be honest throughout.** Challenge decisions, surface problems, don't rubber-stamp.
 
 <!-- platform: codex -->
 <codex_adapter>

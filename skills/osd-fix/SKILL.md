@@ -6,6 +6,7 @@ description: "Use when something is broken — bugs, test failures, errors, cras
 # Fix — Bug Fix Pipeline
 
 Understand → plan → implement → validate. No spec needed — the fix and its regression test are the deliverable.
+Each phase is inline or a skill — follow its procedure, then ask the user before moving on.
 
 ## Iron Law
 
@@ -20,14 +21,6 @@ Understand → plan → implement → validate. No spec needed — the fix and i
 | "Let me just try this quick fix" | Quick fixes that work by coincidence break under different conditions. |
 | "The user told me what's wrong" | The user told you the symptom. The cause may be elsewhere. Verify independently. |
 | "I've seen this pattern before" | This codebase may be different. Read the actual code, don't assume. |
-
-# Fix Flow — Bug Fix Orchestrator
-
-You are running a four-phase pipeline. Activate each skill, follow its procedure, then ask the user before moving on.
-
-**After each phase, ask the user before proceeding to the next one.** Do not silently stop. Do not silently continue.
-
-No spec is produced. The fix and its regression test are the deliverable.
 
 ## Pipeline
 
@@ -64,11 +57,9 @@ Stop and tell the user: "This is bigger than a bugfix. I recommend switching to 
 
 ## Rules
 
-1. **Always present the next phase.** After completing a phase, tell the user what you found/did and ask to proceed. Never silently stop.
-2. **Ask when unclear.** If you're unsure about expected behavior, edge cases, or priorities — ask the user. Don't guess.
-3. **Don't fix symptoms.** Find and fix the root cause.
-4. **Regression tests are mandatory.** No fix ships without a test that would have caught it.
-5. **Be honest about root cause.** If the real problem is deeper than the reported bug, surface it.
+1. **Ask when unclear.** If you're unsure about expected behavior, edge cases, or priorities — ask the user. Don't guess.
+2. **Regression tests are mandatory.** No fix ships without a test that would have caught it.
+3. **Be honest about root cause.** If the real problem is deeper than the reported bug, surface it.
 
 <!-- platform: codex -->
 <codex_adapter>
