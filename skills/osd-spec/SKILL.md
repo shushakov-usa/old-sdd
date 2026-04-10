@@ -7,19 +7,11 @@ description: "Use to explore ideas, gather requirements, and write a spec. Inter
 
 Explore what to build AND write the spec as you go. Decisions become spec sections immediately, so nothing is lost to context compaction.
 
-## Iron Law
+## Write as You Go
 
-**DO NOT RUSH TO WRITE.** The problem is never "too many questions" — it's "not enough questions." You are not done exploring until every spec section you write is backed by real answers, not assumptions.
+After each phase, write (or update) the corresponding spec sections to the file before asking the next round of questions. If context gets compacted, the spec file preserves everything.
 
-### Anti-Rationalization Table
-
-| Temptation | Reality |
-|-----------|---------|
-| "I have a good enough picture" | You don't. List what you'd write in each spec section — any blanks? |
-| "The user seems impatient" | They'll be more impatient when you build the wrong thing. Ask. |
-| "This is simple, I can figure it out" | Simple features have the most implicit assumptions. Surface them. |
-| "I'll handle details during implementation" | That's where silent wrong decisions happen. Ask now. |
-| "We can iterate later" | Iteration costs 10x more than getting it right the first time. |
+**Don't rush to write either.** Every section you write should be backed by actual answers, not assumptions. If you'd have to guess — ask first.
 
 ## Mode Detection
 
@@ -76,21 +68,19 @@ Scale each section to complexity. Skip sections that don't apply. A config chang
 
 ### Phase 1: Understand (always)
 
-Ask about the problem and context:
-- What's broken or missing? Why does it matter?
-- Who uses this? What do they do today?
-- What triggered this — a user complaint, a technical need, a new requirement?
-
-**After answers:** Write `## Problem` section.
+1. Ask about the problem and context:
+   - What's broken or missing? Why does it matter?
+   - Who uses this? What do they do today?
+   - What triggered this — a user complaint, a technical need, a new requirement?
+2. **Write `## Problem` to the spec file.** Don't proceed to Phase 2 until it's written.
 
 ### Phase 2: Approach (always)
 
-Ask about the solution direction:
-- What approach are you leaning toward? Or should we explore options?
-- What existing code/systems does this touch?
-- Are there constraints (tech stack, timeline, compatibility)?
-
-**After answers:** Write `## Solution` section. Start `## Decisions & Rationale` if choices were made.
+1. Ask about the solution direction:
+   - What approach are you leaning toward? Or should we explore options?
+   - What existing code/systems does this touch?
+   - Are there constraints (tech stack, timeline, compatibility)?
+2. **Write `## Solution` to the spec file.** Start `## Decisions & Rationale` if choices were made. Don't proceed to Phase 3 until it's written.
 
 ### Phase 3: Details (adaptive depth)
 
@@ -116,18 +106,17 @@ This is where depth scales with complexity. Ask about whatever the feature needs
 - How do they communicate?
 - What are the key interfaces?
 
-**After each batch of answers:** Write or update the relevant spec sections (`## Architecture`, `## Behavior`, more `## Decisions`).
+**After each batch of answers, write or update the relevant spec sections** (`## Architecture`, `## Behavior`, more `## Decisions`) to the file before asking the next batch.
 
 Continue until all relevant details are covered. Don't stop at the surface.
 
 ### Phase 4: Boundaries (always)
 
-Ask about scope and testing:
-- What's explicitly NOT included in this work?
-- How should we test this? What automated tests?
-- What does "done" look like?
-
-**After answers:** Write `## Out of Scope` and `## Validation Criteria`.
+1. Ask about scope and testing:
+   - What's explicitly NOT included in this work?
+   - How should we test this? What automated tests?
+   - What does "done" look like?
+2. **Write `## Out of Scope` and `## Validation Criteria` to the spec file.**
 
 ## Honest Feedback
 
