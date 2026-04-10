@@ -120,6 +120,7 @@ async function install(only) {
   }
 
   // Check for existing installations
+  const toRemove = [];
   for (const [platform, skillsDir] of Object.entries(platforms)) {
     const existing = detectExisting(skillsDir);
     if (existing.length > 0) {
@@ -127,7 +128,18 @@ async function install(only) {
       const label = oldCount > 0
         ? `${existing.length} skills (${oldCount} outdated)`
         : `${existing.length} skills`;
-      console.log(`  ⚠ ${platform}: found ${label}. Overwriting...`);
+      console.log(`  ⚠ ${platform}: found ${label}`);
+      toRemove.push({ platform, skillsDir, existing });
+    }
+  }
+
+  if (toRemove.length > 0) {
+    const answer = await prompt("  Overwrite existing skills? [y/N]: ");
+    if (answer.toLowerCase() !== "y") {
+      console.log("  Aborted.");
+      process.exit(0);
+    }
+    for (const { skillsDir, existing } of toRemove) {
       for (const { skill } of existing) {
         fs.rmSync(path.join(skillsDir, skill), { recursive: true });
       }
