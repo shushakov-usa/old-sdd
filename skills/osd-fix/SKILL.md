@@ -6,7 +6,7 @@ description: "Use when something is broken — bugs, test failures, errors, cras
 # Fix — Bug Fix Pipeline
 
 Understand → plan → implement → validate. No spec needed — the fix and its regression test are the deliverable.
-Each phase is inline or a skill — follow its procedure, then ask the user before moving on.
+Each phase is inline or a skill — follow its procedure, then get user approval before moving to the next phase (unless the user said not to ask).
 
 ## Iron Law
 
@@ -24,10 +24,10 @@ Each phase is inline or a skill — follow its procedure, then ask the user befo
 
 ## Pipeline
 
-1. **Understand** → investigate the bug yourself (no separate skill — see procedure below). When done → present findings and ask: "Here's what I found. Ready to plan the fix?"
-2. **Plan** → activate `/osd-plan`. Adapt for bugfix: brief task list in memory (not saved to disk), what code to change, what regression test to write. For complex/deep bugs: write root-cause analysis to `docs/agents/investigations/<topic>.md`. When done → ask: "Here's the fix plan. Shall I implement it?"
-3. **Implement** → activate `/osd-implement`. Adapt for bugfix: fix + mandatory regression test, atomic commit. When done → ask: "Fix implemented with regression test. Run validation?"
-4. **Validate** → activate `/osd-validate`. Also reproduce the original steps to confirm the bug is actually fixed. On failure → loop back to implement. On success → done.
+1. **Understand** → investigate the bug yourself (no separate skill — see procedure below). Get user approval before continuing.
+2. **Plan** → activate skill `/osd-plan`. Adapt for bugfix: brief task list in memory (not saved to disk), what code to change, what regression test to write. For complex/deep bugs: write root-cause analysis to `docs/agents/investigations/<topic>.md`.
+3. **Implement** → activate skill `/osd-implement`. Adapt for bugfix: fix + mandatory regression test, atomic commit.
+4. **Validate** → activate skill `/osd-validate`. Also reproduce the original steps to confirm the bug is actually fixed. On failure → loop back to implement. On success → done.
 
 ## Phase 1: Understand the Bug
 

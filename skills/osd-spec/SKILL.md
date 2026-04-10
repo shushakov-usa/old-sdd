@@ -161,14 +161,7 @@ If ANY fails, ask more questions. Show the checklist with what's missing.
 
 ## Transition Gate
 
-When the checklist passes, ask:
-
-> "The spec is complete at `/tmp/osd-spec-<topic>.md`. How would you like to proceed?"
-
-Choices:
-1. **"Review together"** — User reviews spec, iterates on feedback.
-2. **"Commit and continue"** — Commit spec and proceed to planning.
-3. **"More questions"** — Continue exploring.
+When the checklist passes, get user approval to commit the spec and move to planning.
 
 ## Committing the Spec
 

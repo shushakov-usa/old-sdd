@@ -6,14 +6,14 @@ description: "Use to build a new feature, component, or subsystem from scratch. 
 # Build — Feature Development Pipeline
 
 Full lifecycle: spec → plan → implement → validate.
-Each phase is a skill — activate it, follow its procedure, then ask the user before moving on.
+Each phase is a skill — activate it, follow its procedure, then get user approval before moving to the next phase (unless the user said not to ask).
 
 ## Pipeline
 
-1. **Spec** → activate skill `/osd-spec`. When done → ask: "Spec committed. Ready to plan?"
-2. **Plan** → activate skill `/osd-plan`. When done → ask: "Plan ready. Start implementing?"
-3. **Implement** → activate skill `/osd-implement`. When done → ask: "Implementation complete. Run validation?"
-4. **Validate** → activate skill `/osd-validate`. On success → done. On failure → loop back to implement (or plan if the plan was wrong).
+1. **Spec** → activate skill `/osd-spec`.
+2. **Plan** → activate skill `/osd-plan`.
+3. **Implement** → activate skill `/osd-implement`.
+4. **Validate** → activate skill `/osd-validate`. On failure → loop back to implement (or plan if the plan was wrong).
 
 ## Rules
 
