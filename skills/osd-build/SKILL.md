@@ -1,13 +1,11 @@
 ---
 name: osd-build
-description: "Use to build a new feature, component, or subsystem from scratch. Full pipeline: brainstorm → plan → implement → validate. For significant changes that need design decisions and structured development."
+description: "Use to build a new feature, component, or subsystem from scratch. Full pipeline: spec → plan → implement → validate. For significant changes that need design decisions and structured development."
 ---
 
 # Build — Feature Development Pipeline
 
 Full lifecycle: spec → plan → implement → validate.
-
-# Build Flow — Feature Development Orchestrator
 
 You are running a four-phase pipeline. Each phase is a skill — activate it, follow its procedure, then ask the user before moving on.
 
