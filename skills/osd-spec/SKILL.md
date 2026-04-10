@@ -175,7 +175,7 @@ If yes, detect the docs folder:
 1. If `docs/superpowers/` exists → use `docs/superpowers/specs/`
 2. Otherwise → use `docs/agents/specs/`
 
-Copy to `<docs-folder>/specs/YYYY-MM-DD-<topic>.md`. Don't commit separately — it will be included in the implementation commits.
+Copy to `<docs-folder>/specs/YYYY-MM-DD-<topic>.md`.
 
 ## What Happens Next
 
