@@ -29,12 +29,15 @@ function prompt(question) {
 
 function detectExisting(skillsDir) {
   const found = [];
-  for (const skill of SKILLS) {
-    const skillFile = path.join(skillsDir, skill, "SKILL.md");
+  if (!fs.existsSync(skillsDir)) return found;
+  // Scan all osd-* directories, not just current SKILLS — catches orphaned skills from older versions
+  for (const entry of fs.readdirSync(skillsDir).filter((e) => e.startsWith("osd-"))) {
+    const skillFile = path.join(skillsDir, entry, "SKILL.md");
     if (fs.existsSync(skillFile)) {
       const content = fs.readFileSync(skillFile, "utf-8");
       const isOldFormat = /<!--\s*include:/.test(content) || /@shared\//.test(content);
-      found.push({ skill, old: isOldFormat });
+      const isOrphaned = !SKILLS.includes(entry);
+      found.push({ skill: entry, old: isOldFormat, orphaned: isOrphaned });
     }
   }
   return found;
@@ -124,9 +127,11 @@ async function install(only) {
     const existing = detectExisting(skillsDir);
     if (existing.length > 0) {
       const oldCount = existing.filter((e) => e.old).length;
-      const label = oldCount > 0
-        ? `${existing.length} skills (${oldCount} outdated)`
-        : `${existing.length} skills`;
+      const orphanCount = existing.filter((e) => e.orphaned).length;
+      const parts = [`${existing.length} skills`];
+      if (oldCount > 0) parts.push(`${oldCount} outdated`);
+      if (orphanCount > 0) parts.push(`${orphanCount} orphaned`);
+      const label = parts.length > 1 ? `${parts[0]} (${parts.slice(1).join(", ")})` : parts[0];
       console.log(`  ⚠ ${platform}: found ${label}`);
       toRemove.push({ platform, skillsDir, existing });
     }
