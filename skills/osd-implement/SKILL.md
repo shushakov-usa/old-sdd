@@ -5,7 +5,7 @@ description: "Use when a plan exists and you're ready to write code. Executes ta
 
 # Implement Phase
 
-Execute an implementation plan. Needs a plan file — look in `docs/agents/plans/` (or `docs/superpowers/plans/`) or ask the user. If no plan exists, suggest the user activate skill `/osd-plan` first.
+Execute an implementation plan. Needs a plan file — check `/tmp/osd-plan-*.md`, then `docs/agents/plans/` (or `docs/superpowers/plans/`), or ask the user. If no plan exists, suggest the user activate skill `/osd-plan` first.
 
 Also read the spec (referenced in the plan) for full context on what's being built.
 
@@ -21,7 +21,7 @@ Execute the plan. This is where code gets written.
 
 ### 1. Read the Plan
 
-Load the plan from `docs/agents/plans/` (or `docs/superpowers/plans/`). Understand the tasks and dependencies.
+Load the plan (check `/tmp/osd-plan-*.md` or `docs/agents/plans/`). Understand the tasks and dependencies.
 
 ### 2. Execute Tasks
 

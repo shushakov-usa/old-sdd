@@ -11,9 +11,7 @@ Break the spec into executable tasks.
 
 ## Plan Location
 
-Detect the docs folder: if `docs/superpowers/` exists → use it, otherwise → `docs/agents/`.
-
-Save the plan to `<docs-folder>/plans/YYYY-MM-DD-<topic>.md`.
+Save the plan to `/tmp/osd-plan-<topic>.md`.
 
 ## Plan Format
 
@@ -86,7 +84,7 @@ The implementing agent uses these hints to select models (e.g., `claude-haiku-4.
 2. **List all tasks** — What concrete changes are needed?
 3. **Map dependencies** — What depends on what? What can run in parallel?
 4. **Add model hints** — Cheap vs standard for each task.
-5. **Write plan** — Save to `<docs-folder>/plans/YYYY-MM-DD-<topic>.md`.
+5. **Write plan** — Save to `/tmp/osd-plan-<topic>.md`.
 
 ## Self-Check
 
