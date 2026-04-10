@@ -17,7 +17,7 @@ You are running a four-phase pipeline. Each phase is a skill — activate it, fo
 
 ## Pipeline
 
-1. **Brainstorm** → activate `/osd-brainstorm`. This phase explores requirements AND writes the spec incrementally. When done → ask: "Spec committed. Ready to create the implementation plan?"
+1. **Spec** → activate `/osd-spec`. This phase explores requirements AND writes the spec incrementally. When done → ask: "Spec committed. Ready to create the implementation plan?"
 2. **Plan** → activate `/osd-plan`. When done → ask: "Plan ready. Start implementing?"
 3. **Implement** → activate `/osd-implement`. When done → ask: "Implementation complete. Run validation?"
 4. **Validate** → activate `/osd-validate`. On success → done. On failure → loop back to implement (or plan if the plan was wrong).

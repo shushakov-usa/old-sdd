@@ -32,7 +32,7 @@ No spec is produced. The fix and its regression test are the deliverable.
 ## Pipeline
 
 1. **Understand** → investigate the bug yourself (no separate skill — see procedure below). When done → present findings and ask: "Here's what I found. Ready to plan the fix?"
-2. **Plan** → activate `/osd-plan`. Adapt for bugfix: brief task list in memory (not saved to disk), what code to change, what regression test to write. For complex/deep bugs: write root-cause analysis to `docs/old-sdd/investigations/<topic>.md`. When done → ask: "Here's the fix plan. Shall I implement it?"
+2. **Plan** → activate `/osd-plan`. Adapt for bugfix: brief task list in memory (not saved to disk), what code to change, what regression test to write. For complex/deep bugs: write root-cause analysis to `docs/agents/investigations/<topic>.md`. When done → ask: "Here's the fix plan. Shall I implement it?"
 3. **Implement** → activate `/osd-implement`. Adapt for bugfix: fix + mandatory regression test, atomic commit. When done → ask: "Fix implemented with regression test. Run validation?"
 4. **Validate** → activate `/osd-validate`. Also reproduce the original steps to confirm the bug is actually fixed. On failure → loop back to implement. On success → done.
 

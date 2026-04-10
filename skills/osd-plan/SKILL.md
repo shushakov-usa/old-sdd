@@ -5,21 +5,21 @@ description: "Use after a spec is written to break requirements into executable 
 
 # Plan Phase
 
-Break a spec into executable tasks. Needs a spec — check session context, then `docs/old-sdd/specs/`, then ask the user. If no spec exists, suggest `/osd-spec` first.
+Break a spec into executable tasks. Needs a spec — check session context, then `docs/agents/specs/` (or `docs/superpowers/specs/`), then ask the user. If no spec exists, suggest `/osd-spec` first.
 
-Produces `docs/old-sdd/plans/YYYY-MM-DD-<topic>.md` — committed alongside the spec. After planning, suggest `/osd-implement`.
+Detect the docs folder (if `docs/superpowers/` exists → use it, otherwise → `docs/agents/`). Produces `<docs-folder>/plans/YYYY-MM-DD-<topic>.md` — committed alongside the spec. After planning, suggest `/osd-implement`.
 
 Break the spec into executable tasks grouped into parallelizable waves.
 
 ## Plan Location
 
-`docs/old-sdd/plans/YYYY-MM-DD-<topic>.md` — committed alongside the spec.
+`<docs-folder>/plans/YYYY-MM-DD-<topic>.md` — committed alongside the spec.
 
 ## Plan Format
 
 ```
 # Plan: <Feature Name>
-Spec: docs/old-sdd/specs/YYYY-MM-DD-<topic>.md
+Spec: <docs-folder>/specs/YYYY-MM-DD-<topic>.md
 
 ## Tasks
 
@@ -125,7 +125,7 @@ The implementing agent uses these hints to select models (e.g., `claude-haiku-4.
 3. **Map dependencies** — What depends on what?
 4. **Group into waves** — Independent tasks in the same wave.
 5. **Add model hints** — Cheap vs standard for each task.
-6. **Write plan** — Save to `docs/old-sdd/plans/YYYY-MM-DD-<topic>.md` and commit.
+6. **Write plan** — Save to `<docs-folder>/plans/YYYY-MM-DD-<topic>.md` and commit.
 
 ## Colleague Mode
 

@@ -2,7 +2,7 @@
 
 Simple spec-driven development for AI coding agents.
 
-old-sdd is a set of markdown skills that teach your AI agent to brainstorm thoroughly, write specs, plan with parallelism, implement ambitiously, and validate honestly. The agent acts as a senior colleague — it has opinions and isn't afraid to disagree with you.
+old-sdd is a set of markdown skills that teach your AI agent to explore requirements thoroughly, write specs incrementally, plan with parallelism, implement ambitiously, and validate honestly. The agent acts as a senior colleague — it has opinions and isn't afraid to disagree with you.
 
 ## Skills
 
@@ -10,8 +10,7 @@ old-sdd is a set of markdown skills that teach your AI agent to brainstorm thoro
 |-------|-------------|
 | `/osd-build` | New feature or major change — full pipeline |
 | `/osd-fix` | Bug reported or tests failing |
-| `/osd-brainstorm` | Exploring ideas before committing to build |
-| `/osd-spec` | Formalizing brainstorming into a committed spec |
+| `/osd-spec` | Exploring ideas AND writing a spec interactively |
 | `/osd-plan` | Breaking a spec into parallelizable task waves |
 | `/osd-implement` | Executing a written plan with subagents |
 | `/osd-validate` | Verifying implementation before shipping |
@@ -50,7 +49,7 @@ After installation, restart your agent CLI. The skills will appear in the comman
 The agent will:
 1. Ask you questions to understand what you want (batching independent questions for speed)
 2. Research options and present findings with opinions
-3. Write a spec and ask you to review it (or go straight to work)
+3. Write the spec incrementally as decisions are made
 4. Create a task plan with parallelizable waves
 5. Implement using subagents where possible
 6. Validate with tests, lint, type checks, and UI verification
@@ -67,8 +66,7 @@ Lighter flow: investigate the bug → plan a fix → implement with regression t
 
 You can invoke any phase directly:
 
-- `/osd-brainstorm` — Explore ideas without committing to build
-- `/osd-spec` — Write a spec from existing context
+- `/osd-spec` — Explore ideas and write a spec interactively
 - `/osd-plan` — Plan from an existing spec
 - `/osd-implement` — Execute an existing plan
 - `/osd-validate` — Validate recent changes
@@ -87,21 +85,21 @@ It won't be contrarian for the sake of it, and if you insist after hearing its c
 
 | What | Where | Committed? |
 |------|-------|-----------|
-| Specs | `docs/old-sdd/specs/YYYY-MM-DD-<topic>.md` | Yes |
-| Plans | `docs/old-sdd/plans/YYYY-MM-DD-<topic>.md` | Yes |
-| Bug investigations | `docs/old-sdd/investigations/<topic>.md` | Yes (complex bugs) |
+| Specs | `docs/agents/specs/YYYY-MM-DD-<topic>.md` | Yes |
+| Plans | `docs/agents/plans/YYYY-MM-DD-<topic>.md` | Yes |
+| Bug investigations | `docs/agents/investigations/<topic>.md` | Yes (complex bugs) |
 | Tests | Your project's test directory | Yes |
+
+Uses `docs/superpowers/` instead if that directory already exists in the project.
 
 ## Architecture
 
 ```
 cli.js           ← Node.js CLI (npx old-sdd install/uninstall/list)
-skills/          ← 7 universal SKILL.md templates (routing + include markers)
-shared/          ← shared content (inlined at install time)
-install.sh       ← shell alternative to cli.js
+skills/          ← 6 self-contained SKILL.md files
 ```
 
-The installer expands `<!-- include: shared/file.md -->` markers and handles platform-specific blocks (`<!-- platform: codex -->`) so each installed SKILL.md is fully self-contained with no external dependencies.
+The installer handles platform-specific blocks (`<!-- platform: codex -->`) so each installed SKILL.md is fully self-contained with no external dependencies.
 
 ## Platforms
 

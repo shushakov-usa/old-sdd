@@ -6,7 +6,6 @@ const os = require("os");
 const readline = require("readline");
 
 const SKILLS = [
-  "osd-brainstorm",
   "osd-build",
   "osd-fix",
   "osd-implement",

@@ -5,7 +5,7 @@ description: "Use when a plan exists and you're ready to write code. Executes ta
 
 # Implement Phase
 
-Execute an implementation plan. Needs a plan file — look in `docs/old-sdd/plans/` or ask the user. If no plan exists, suggest `/osd-plan` first.
+Execute an implementation plan. Needs a plan file — look in `docs/agents/plans/` (or `docs/superpowers/plans/`) or ask the user. If no plan exists, suggest `/osd-plan` first.
 
 After all tasks complete, suggest `/osd-validate` to verify.
 
@@ -29,7 +29,7 @@ Execute the plan. This is where code gets written.
 
 ### 1. Read the Plan
 
-Load the plan from `docs/old-sdd/plans/`. Understand the waves, tasks, and dependencies.
+Load the plan from `docs/agents/plans/` (or `docs/superpowers/plans/`). Understand the waves, tasks, and dependencies.
 
 ### 2. Execute Wave by Wave
 
