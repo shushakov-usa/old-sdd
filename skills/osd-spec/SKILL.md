@@ -169,17 +169,13 @@ When everything passes, get user approval to move to planning.
 
 ## Saving the Spec
 
-Ask the user whether to save the spec. For features, recommend saving. For bug fixes and small changes, mention it's optional.
+Ask the user whether to save the spec to the project. For features, recommend saving. For bug fixes and small changes, mention it's optional.
 
-Detect the docs folder:
+If yes, detect the docs folder:
 1. If `docs/superpowers/` exists → use `docs/superpowers/specs/`
 2. Otherwise → use `docs/agents/specs/`
 
-```bash
-cp /tmp/osd-spec-<topic>.md <docs-folder>/specs/YYYY-MM-DD-<topic>.md
-git add <docs-folder>/specs/YYYY-MM-DD-<topic>.md
-git commit  # match the project's existing commit style
-```
+Copy to `<docs-folder>/specs/YYYY-MM-DD-<topic>.md`. Don't commit separately — it will be included in the implementation commits.
 
 ## What Happens Next
 
