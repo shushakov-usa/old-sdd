@@ -7,8 +7,6 @@ description: "Use to explore ideas, gather requirements, and write a spec. Inter
 
 Explore what to build AND write the spec as you go. Decisions become spec sections immediately, so nothing is lost to context compaction.
 
-After the spec is done, suggest the user activate skill `/osd-plan` to create an implementation plan, or `/osd-build` for the full pipeline.
-
 ## Iron Law
 
 **DO NOT RUSH TO WRITE.** The problem is never "too many questions" — it's "not enough questions." You are not done exploring until every spec section you write is backed by real answers, not assumptions.
@@ -34,8 +32,6 @@ When invoked, assess how much the user already knows:
 ## Spec File
 
 Create `/tmp/osd-spec-<topic>.md` at the start with a skeleton. Fill sections as understanding forms.
-
-Tell the user: "I've started the spec at `/tmp/osd-spec-<topic>.md`. I'll fill it in as we discuss."
 
 ### Spec Template
 
@@ -75,7 +71,7 @@ Ask about the problem and context:
 - Who uses this? What do they do today?
 - What triggered this — a user complaint, a technical need, a new requirement?
 
-**After answers:** Write `## Problem` section. Show what you wrote.
+**After answers:** Write `## Problem` section.
 
 ### Phase 2: Approach (always)
 
@@ -84,7 +80,7 @@ Ask about the solution direction:
 - What existing code/systems does this touch?
 - Are there constraints (tech stack, timeline, compatibility)?
 
-**After answers:** Write `## Solution` section. Start `## Decisions & Rationale` if choices were made. Show what you wrote.
+**After answers:** Write `## Solution` section. Start `## Decisions & Rationale` if choices were made.
 
 ### Phase 3: Details (adaptive depth)
 
@@ -110,7 +106,7 @@ This is where depth scales with complexity. Ask about whatever the feature needs
 - How do they communicate?
 - What are the key interfaces?
 
-**After each batch of answers:** Write or update the relevant spec sections (`## Architecture`, `## Behavior`, more `## Decisions`). Show what you wrote.
+**After each batch of answers:** Write or update the relevant spec sections (`## Architecture`, `## Behavior`, more `## Decisions`).
 
 Continue until all relevant details are covered. Don't stop at the surface.
 
@@ -121,7 +117,7 @@ Ask about scope and testing:
 - How should we test this? What automated tests?
 - What does "done" look like?
 
-**After answers:** Write `## Out of Scope` and `## Validation Criteria`. Show what you wrote.
+**After answers:** Write `## Out of Scope` and `## Validation Criteria`.
 
 ## Honest Feedback
 
@@ -159,9 +155,7 @@ Before transitioning, read the spec file and verify:
 
 If ANY fails, ask more questions. Show the checklist with what's missing.
 
-## Transition Gate
-
-When the checklist passes, get user approval to move to planning.
+When everything passes, get user approval to move to planning.
 
 ## Saving the Spec
 
