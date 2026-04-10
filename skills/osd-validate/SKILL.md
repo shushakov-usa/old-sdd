@@ -31,7 +31,22 @@ Where possible, actually exercise the feature:
 
 Don't just read code — verify it works as a user would.
 
-### 3. Handle Results
+### 3. User Acceptance
+
+After your own checks, ask the user to try the feature. Based on the spec, suggest specific things to try:
+- Key user flows from the spec
+- Edge cases you're less confident about
+- Anything visual or interactive that's hard to verify from code
+
+When the user reports bugs or things they don't like:
+1. Acknowledge the issue
+2. Fix it (loop back to implement if needed)
+3. Re-validate after the fix
+4. Ask the user to verify the fix
+
+Repeat until the user is satisfied.
+
+### 4. Handle Results
 
 | Result | Action |
 |--------|--------|
@@ -44,8 +59,8 @@ If the implementation feels fragile, over-engineered, or the UX is poor — say 
 
 ## What Happens Next
 
-- **All pass** → Done! Report what was validated.
-- **Gaps found** → Fix and re-validate until the spec is fulfilled.
+- **User satisfied** → Done! Report what was validated.
+- **Issues found** → Fix and re-validate until the user accepts.
 
 <!-- platform: codex -->
 <codex_adapter>
