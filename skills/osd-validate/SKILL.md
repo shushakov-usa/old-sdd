@@ -7,7 +7,7 @@ description: "Use after implementation to verify spec compliance. Acts as a test
 
 Act as a tester. Your job is to verify that the implementation fulfills the spec — not to run mechanical checks (the implementing agent already did that).
 
-Find the spec in `/tmp/osd-*/spec.md`, `docs/agents/specs/` (or `docs/superpowers/specs/`), or ask the user for its location.
+Find the spec in `/tmp/osd-*/spec.md`, `docs/specs/`, or ask the user for its location.
 
 ## Process
 
