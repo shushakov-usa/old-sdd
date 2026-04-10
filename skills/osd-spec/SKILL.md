@@ -23,11 +23,21 @@ Explore what to build AND write the spec as you go. Decisions become spec sectio
 
 ## Mode Detection
 
-When invoked, assess how much the user already knows:
+When invoked, assess **what kind of task** and **how much the user already knows**.
+
+### Task Type
+
+- **Feature** → Full exploration pipeline, all phases
+- **Bug fix** → Lightweight: what's broken, repro steps, expected behavior. Write a minimal spec (Problem + Behavior + Validation). Skip Architecture and detailed edge-case exploration.
+- **Small change** (config, rename, refactor) → Quick: Problem + Solution + Validation. May not even need a spec file — ask the user.
+
+### User Knowledge
 
 - **Vague idea** ("I want to add notifications") → Full exploration flow, all phases
 - **Clear requirements** ("Add email notifications via SendGrid when orders ship, with retry logic") → Quick clarification (2-4 questions), then write spec
 - **Complete brief** (user provides detailed requirements) → Write spec directly, present for review
+
+Combine both: a vague feature gets the full pipeline; a clear bug fix gets 2-3 questions and a minimal spec.
 
 ## Spec File
 
@@ -159,7 +169,7 @@ When everything passes, get user approval to move to planning.
 
 ## Saving the Spec
 
-If the spec is worth keeping, save it to a permanent location:
+Ask the user whether to save the spec. For features, recommend saving. For bug fixes and small changes, mention it's optional.
 
 Detect the docs folder:
 1. If `docs/superpowers/` exists → use `docs/superpowers/specs/`
