@@ -97,7 +97,9 @@ Before finishing the plan, verify:
 
 ## What Happens Next
 
-Get user approval, then activate skill `/osd-implement` to execute the plan.
+Ask the user what to do next:
+- **Continue to implement** — activate skill `/osd-implement`
+- **Go all the way** (recommended) — activate `/osd-implement`, then `/osd-validate` in sequence without stopping between phases
 
 <!-- platform: codex -->
 <codex_adapter>

@@ -165,7 +165,9 @@ When the checklist passes:
 1. Show the checklist results to the user.
 2. Ask whether to save the spec to the project. For features, recommend saving. For bug fixes and small changes, mention it's optional.
    - If yes: save to `docs/specs/YYYY-MM-DD-<topic>.md`. If specs already exist elsewhere in the project (e.g., `docs/agents/specs/`), use that path instead.
-3. Get user approval, then activate skill `/osd-plan` to create an implementation plan.
+3. Ask the user what to do next:
+   - **Continue to plan** — activate skill `/osd-plan`
+   - **Go all the way** (recommended) — activate `/osd-plan`, then `/osd-implement`, then `/osd-validate` in sequence without stopping between phases
 
 <!-- platform: codex -->
 <codex_adapter>
