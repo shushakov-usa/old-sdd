@@ -64,6 +64,10 @@ Create `/tmp/osd-<topic>/spec.md` at the start with a skeleton. Fill sections as
 
 Scale each section to complexity. Skip sections that don't apply. A config change might only need Problem, Solution, Behavior, and Validation.
 
+## Asking Questions
+
+When presenting choices, think about which option is best for this specific situation and mark it as recommended. Don't present choices neutrally when you have an informed opinion.
+
 ## Exploration Pipeline
 
 ### Phase 1: Understand (always)
