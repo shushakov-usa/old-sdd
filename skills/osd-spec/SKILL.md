@@ -66,7 +66,7 @@ Scale each section to complexity. Skip sections that don't apply. A config chang
 
 ## Asking Questions
 
-Ask one question at a time. Wait for the answer before asking the next. Don't bundle multiple questions into one message — each question gets its own turn.
+Group independent questions (where answers don't affect each other) into one batch. Ask dependent questions sequentially — wait for the answer before asking the next.
 
 When presenting choices, think about which option is best for this specific situation and mark it as recommended. Don't present choices neutrally when you have an informed opinion.
 
@@ -172,13 +172,13 @@ When the checklist passes:
    - **Go all the way** (recommended) — activate `/osd-plan`, then `/osd-implement`, then `/osd-validate` in sequence without stopping between phases
 
 <!-- platform: copilot -->
-When asking questions, use `ask_user` tool. One question per call, with choices when possible. Don't bundle multiple questions into one call — that forces the user to answer everything at once.
+When asking questions, use `ask_user` tool with choices. Batch independent questions as multiple parallel `ask_user` calls in one response. For dependent questions (where the answer affects the next question), wait for the answer first.
 <!-- /platform: copilot -->
 
 <!-- platform: claude -->
-When asking questions, always use the user-input tool — don't ask questions in plain text output. One question at a time.
+When asking questions, always use the user-input tool — don't ask questions in plain text output. Batch independent questions together. For dependent questions, wait for the answer first.
 <!-- /platform: claude -->
 
 <!-- platform: codex -->
-When asking questions in plan mode, use `ask_user_question` tool — one question per call, with choices. In text-only mode, ask one question at a time and wait for the answer.
+When asking questions in plan mode, use `ask_user_question` tool with choices. Batch independent questions as multiple calls. In text-only mode, ask one question at a time and wait for the answer.
 <!-- /platform: codex -->

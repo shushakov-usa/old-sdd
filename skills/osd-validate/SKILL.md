@@ -63,13 +63,13 @@ If the implementation feels fragile, over-engineered, or the UX is poor — say 
 - **Issues found** → Fix and re-validate until the user accepts.
 
 <!-- platform: copilot -->
-When asking questions, use `ask_user` tool. One question per call, with choices when possible. Don't bundle multiple questions into one call — that forces the user to answer everything at once.
+When asking questions, use `ask_user` tool with choices. Batch independent questions as multiple parallel `ask_user` calls in one response. For dependent questions (where the answer affects the next question), wait for the answer first.
 <!-- /platform: copilot -->
 
 <!-- platform: claude -->
-When asking questions, always use the user-input tool — don't ask questions in plain text output. One question at a time.
+When asking questions, always use the user-input tool — don't ask questions in plain text output. Batch independent questions together. For dependent questions, wait for the answer first.
 <!-- /platform: claude -->
 
 <!-- platform: codex -->
-When asking questions in plan mode, use `ask_user_question` tool — one question per call, with choices. In text-only mode, ask one question at a time and wait for the answer.
+When asking questions in plan mode, use `ask_user_question` tool with choices. Batch independent questions as multiple calls. In text-only mode, ask one question at a time and wait for the answer.
 <!-- /platform: codex -->
