@@ -66,6 +66,8 @@ Scale each section to complexity. Skip sections that don't apply. A config chang
 
 ## Asking Questions
 
+Ask one question at a time. Wait for the answer before asking the next. Don't bundle multiple questions into one message — each question gets its own turn.
+
 When presenting choices, think about which option is best for this specific situation and mark it as recommended. Don't present choices neutrally when you have an informed opinion.
 
 ## Exploration Pipeline
@@ -169,10 +171,14 @@ When the checklist passes:
    - **Continue to plan** — activate skill `/osd-plan`
    - **Go all the way** (recommended) — activate `/osd-plan`, then `/osd-implement`, then `/osd-validate` in sequence without stopping between phases
 
+<!-- platform: copilot -->
+When asking questions, use `ask_user` tool. One question per call, with choices when possible. Don't bundle multiple questions into one call — that forces the user to answer everything at once.
+<!-- /platform: copilot -->
+
+<!-- platform: claude -->
+When asking questions, always use the user-input tool — don't ask questions in plain text output. One question at a time.
+<!-- /platform: claude -->
+
 <!-- platform: codex -->
-<codex_adapter>
-Codex interaction depends on the mode:
-- **Plan mode** (ask_user_question tool available): batch related questions into one structured questionnaire with choices.
-- **Any other mode** (text only): ask one question at a time. Wait for the answer before asking the next.
-</codex_adapter>
+When asking questions in plan mode, use `ask_user_question` tool — one question per call, with choices. In text-only mode, ask one question at a time and wait for the answer.
 <!-- /platform: codex -->

@@ -77,10 +77,14 @@ Don't implement workarounds for design flaws — propose fixing the root cause.
 
 Get user approval, then activate skill `/osd-validate` to verify.
 
+<!-- platform: copilot -->
+When asking questions, use `ask_user` tool. One question per call, with choices when possible. Don't bundle multiple questions into one call — that forces the user to answer everything at once.
+<!-- /platform: copilot -->
+
+<!-- platform: claude -->
+When asking questions, always use the user-input tool — don't ask questions in plain text output. One question at a time.
+<!-- /platform: claude -->
+
 <!-- platform: codex -->
-<codex_adapter>
-Codex interaction depends on the mode:
-- **Plan mode** (ask_user_question tool available): batch related questions into one structured questionnaire with choices.
-- **Any other mode** (text only): ask one question at a time. Wait for the answer before asking the next.
-</codex_adapter>
+When asking questions in plan mode, use `ask_user_question` tool — one question per call, with choices. In text-only mode, ask one question at a time and wait for the answer.
 <!-- /platform: codex -->
