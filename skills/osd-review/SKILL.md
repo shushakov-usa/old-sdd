@@ -7,25 +7,35 @@ description: "Use to review code for bugs, security issues, and code quality pro
 
 Review code changes for bugs, security issues, and code cleanliness. By default reviews the current branch diff, but the user can specify files, commits, or a PR.
 
-## What to Review
+## Process
 
-Determine the review scope:
-- **Default:** diff of the current branch against `main` (or `master`)
-- **User-specified:** specific files, commit range, or PR
+1. **Determine scope:**
+   - Default: diff of the current branch against `main` (or `master`)
+   - User can specify: files, commit range, or PR
 
-Also look for the spec if available — check `/tmp/osd-*/spec.md`, `docs/specs/`, or ask the user. Spec context helps catch cases where code doesn't match intent.
+2. **Gather context:**
+   - Get the diff or changed files
+   - Find the spec if available — check `/tmp/osd-*/spec.md`, `docs/specs/`, or ask the user
+   - Note project conventions (coding style, patterns)
 
-## How to Review
+3. **Dispatch review subagent** — use the prompt below. The subagent is **read-only** — it must NOT modify files. Use `general-purpose` agent type (or equivalent on your platform).
 
-Dispatch a **read-only review subagent** via the `task` tool (agent type: `code-review`). The subagent must NOT modify any files.
+4. **Present findings** to the user, grouped by severity.
 
-Provide the subagent with:
-1. **The diff** or file list to review
-2. **The spec** (if available) — for checking intent, not just correctness
-3. **Project conventions** — coding style, patterns observed in the codebase
-4. **Focus areas:** bugs, security, code cleanliness
+## Review Agent Prompt
 
-## What the Reviewer Checks
+Pass this to the subagent, filling in the placeholders:
+
+~~~
+You are a code reviewer. Your job is to find real problems — bugs, security issues, and code quality issues. You must NOT modify any files.
+
+**Review scope:** {diff or file list}
+
+**Spec (if available):** {spec content or "no spec provided"}
+
+**Project conventions:** {coding style, patterns observed}
+
+## What to Check
 
 **Bugs:**
 - Logic errors, off-by-one, null/undefined access
@@ -44,22 +54,23 @@ Provide the subagent with:
 - Dead code, unused imports
 - Inconsistency with existing project patterns
 
-**Spec compliance** (if spec available):
-- Does the code actually do what the spec says?
+**Spec compliance** (if spec provided):
+- Does the code do what the spec says?
 - Missing edge cases described in the spec
 - Over-building — code does more than the spec asked for
 
-## Report Format
+## Output Format
 
-Present findings grouped by severity:
+Group findings by severity:
 
 - **Critical** — bugs, security vulnerabilities, data loss risks
 - **Important** — logic issues, missing error handling, spec mismatches
 - **Suggestion** — code cleanliness, naming, style improvements
 
-Each finding should include: file, line(s), what's wrong, and why it matters.
+Each finding: file, line(s), what's wrong, and why it matters.
 
 No findings = say so. Don't invent issues to look thorough.
+~~~
 
 <!-- platform: copilot -->
 When asking questions, use `ask_user` tool with choices. Batch independent questions as multiple parallel `ask_user` calls in one response. For dependent questions (where the answer affects the next question), wait for the answer first.
