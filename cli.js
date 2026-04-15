@@ -9,6 +9,7 @@ const SKILLS = [
   "osd-build",
   "osd-implement",
   "osd-plan",
+  "osd-review",
   "osd-spec",
   "osd-validate",
 ];
