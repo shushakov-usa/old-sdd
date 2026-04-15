@@ -8,8 +8,7 @@
   "files": [
     "cli.js",
     "skills/",
-    "shared/",
-    "install.sh",
+    "agents/",
     "README.md"
   ],
   "keywords": [

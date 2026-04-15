@@ -14,10 +14,24 @@ const SKILLS = [
   "osd-validate",
 ];
 
+const AGENTS = ["osd-reviewer"];
+
 const PLATFORMS = {
-  copilot: path.join(os.homedir(), ".copilot", "skills"),
-  codex: path.join(os.homedir(), ".codex", "skills"),
-  claude: path.join(os.homedir(), ".claude", "skills"),
+  copilot: {
+    skills: path.join(os.homedir(), ".copilot", "skills"),
+    agents: path.join(os.homedir(), ".copilot", "agents"),
+    parent: path.join(os.homedir(), ".copilot"),
+  },
+  codex: {
+    skills: path.join(os.homedir(), ".codex", "skills"),
+    agents: path.join(os.homedir(), ".codex", "agents"),
+    parent: path.join(os.homedir(), ".codex"),
+  },
+  claude: {
+    skills: path.join(os.homedir(), ".claude", "skills"),
+    agents: path.join(os.homedir(), ".claude", "agents"),
+    parent: path.join(os.homedir(), ".claude"),
+  },
 };
 
 const ROOT = __dirname;
@@ -27,7 +41,7 @@ function prompt(question) {
   return new Promise((resolve) => rl.question(question, (a) => { rl.close(); resolve(a.trim()); }));
 }
 
-function detectExisting(skillsDir) {
+function detectExistingSkills(skillsDir) {
   const found = [];
   if (!fs.existsSync(skillsDir)) return found;
   // Scan all osd-* directories, not just current SKILLS — catches orphaned skills from older versions
@@ -37,62 +51,117 @@ function detectExisting(skillsDir) {
       const content = fs.readFileSync(skillFile, "utf-8");
       const isOldFormat = /<!--\s*include:/.test(content) || /@shared\//.test(content);
       const isOrphaned = !SKILLS.includes(entry);
-      found.push({ skill: entry, old: isOldFormat, orphaned: isOrphaned });
+      found.push({ name: entry, old: isOldFormat, orphaned: isOrphaned });
     }
   }
   return found;
 }
 
-function compileSkill(templatePath, platform) {
-  const lines = fs.readFileSync(templatePath, "utf-8").split("\n");
+function detectExistingAgents(agentsDir, platform) {
+  const found = [];
+  if (!fs.existsSync(agentsDir)) return found;
+  const ext = platform === "copilot" ? ".agent.md" : ".md";
+  for (const entry of fs.readdirSync(agentsDir).filter((e) => e.startsWith("osd-"))) {
+    if (entry.endsWith(ext)) {
+      const name = entry.replace(ext, "");
+      const isOrphaned = !AGENTS.includes(name);
+      found.push({ name, orphaned: isOrphaned });
+    }
+  }
+  return found;
+}
+
+function stripPlatformBlocks(content, platform) {
+  const lines = content.split("\n");
   const out = [];
   let skip = false;
 
   for (const line of lines) {
-    // Platform block start
     const blockStart = line.match(/<!--\s*platform:\s*(\w+)\s*-->/);
     if (blockStart) {
       skip = blockStart[1] !== platform;
-      if (!skip) continue; // consume the marker, keep content
+      if (!skip) continue;
       continue;
     }
-
-    // Platform block end
     if (/<!--\s*\/platform:\s*\w+\s*-->/.test(line)) {
       skip = false;
       continue;
     }
-
     if (skip) continue;
-
     out.push(line);
   }
 
   return out.join("\n");
 }
 
+function compileSkill(templatePath, platform) {
+  return stripPlatformBlocks(fs.readFileSync(templatePath, "utf-8"), platform);
+}
+
+function parseFrontmatter(content) {
+  const match = content.match(/^---\n([\s\S]*?)\n---\n([\s\S]*)$/);
+  if (!match) return { attrs: {}, body: content };
+
+  const attrs = {};
+  for (const line of match[1].split("\n")) {
+    const kv = line.match(/^(\w+):\s*"?(.+?)"?\s*$/);
+    if (kv) attrs[kv[1]] = kv[2];
+  }
+  return { attrs, body: match[2] };
+}
+
+function compileAgent(name, platform) {
+  const srcPath = path.join(ROOT, "agents", name, "agent.md");
+  const raw = fs.readFileSync(srcPath, "utf-8");
+  const { attrs, body } = parseFrontmatter(raw);
+  const compiledBody = stripPlatformBlocks(body, platform);
+  const agentName = attrs.name || name;
+  const agentDesc = attrs.description || "";
+
+  const files = [];
+
+  if (platform === "copilot") {
+    files.push({
+      filename: `${name}.agent.md`,
+      content: `---\nname: ${agentName}\ndescription: "${agentDesc}"\n---\n${compiledBody}`,
+    });
+  } else if (platform === "claude") {
+    files.push({
+      filename: `${name}.md`,
+      content: `---\nname: ${agentName}\ndescription: "${agentDesc}"\n---\n${compiledBody}`,
+    });
+  } else if (platform === "codex") {
+    files.push({
+      filename: `${name}.md`,
+      content: `---\nname: "${agentName}"\ndescription: "${agentDesc}"\n---\n\n<codex_agent_role>\nrole: ${agentName}\npurpose: ${agentDesc}\n</codex_agent_role>\n\n${compiledBody}`,
+    });
+    files.push({
+      filename: `${name}.toml`,
+      content: `name = "${agentName}"\ndescription = "${agentDesc}"\ndeveloper_instructions = '''\n${compiledBody}'''`,
+    });
+  }
+
+  return files;
+}
+
 async function install(only) {
-  let platforms;
+  let targets;
 
   if (only) {
-    // Explicit platform argument
     if (!PLATFORMS[only]) {
       console.error(`Unknown platform: ${only}. Use: copilot, codex, claude`);
       process.exit(1);
     }
-    const parent = path.dirname(PLATFORMS[only]);
-    if (!fs.existsSync(parent)) {
-      console.error(`${only} not found (${parent} doesn't exist)`);
+    if (!fs.existsSync(PLATFORMS[only].parent)) {
+      console.error(`${only} not found (${PLATFORMS[only].parent} doesn't exist)`);
       process.exit(1);
     }
-    platforms = { [only]: PLATFORMS[only] };
+    targets = { [only]: PLATFORMS[only] };
   } else {
-    // Auto-detect available platforms
     const available = {};
-    for (const [name, skillsDir] of Object.entries(PLATFORMS)) {
-      const parent = path.dirname(skillsDir);
-      if (fs.existsSync(parent)) {
-        available[name] = skillsDir;
+    for (const [name, dirs] of Object.entries(PLATFORMS)) {
+      if (fs.existsSync(dirs.parent)) {
+        available[name] = dirs;
       }
     }
 
@@ -101,7 +170,6 @@ async function install(only) {
       process.exit(1);
     }
 
-    // Interactive selection
     const names = Object.keys(available);
     console.log("Detected AI CLIs:\n");
     names.forEach((name, i) => console.log(`  ${i + 1}) ${name}`));
@@ -111,10 +179,10 @@ async function install(only) {
     const choice = parseInt(answer, 10);
 
     if (choice === names.length + 1 || answer.toLowerCase() === "all") {
-      platforms = available;
+      targets = available;
     } else if (choice >= 1 && choice <= names.length) {
       const picked = names[choice - 1];
-      platforms = { [picked]: available[picked] };
+      targets = { [picked]: available[picked] };
     } else {
       console.error("Invalid choice.");
       process.exit(1);
@@ -123,98 +191,156 @@ async function install(only) {
 
   // Check for existing installations
   const toRemove = [];
-  for (const [platform, skillsDir] of Object.entries(platforms)) {
-    const existing = detectExisting(skillsDir);
-    if (existing.length > 0) {
-      const oldCount = existing.filter((e) => e.old).length;
-      const orphanCount = existing.filter((e) => e.orphaned).length;
-      const parts = [`${existing.length} skills`];
-      if (oldCount > 0) parts.push(`${oldCount} outdated`);
-      if (orphanCount > 0) parts.push(`${orphanCount} orphaned`);
-      const label = parts.length > 1 ? `${parts[0]} (${parts.slice(1).join(", ")})` : parts[0];
-      console.log(`  ⚠ ${platform}: found ${label}`);
-      toRemove.push({ platform, skillsDir, existing });
+  for (const [platform, dirs] of Object.entries(targets)) {
+    const existingSkills = detectExistingSkills(dirs.skills);
+    const existingAgents = detectExistingAgents(dirs.agents, platform);
+    if (existingSkills.length > 0 || existingAgents.length > 0) {
+      const parts = [];
+      if (existingSkills.length > 0) {
+        const oldCount = existingSkills.filter((e) => e.old).length;
+        const orphanCount = existingSkills.filter((e) => e.orphaned).length;
+        const sp = [`${existingSkills.length} skills`];
+        if (oldCount > 0) sp.push(`${oldCount} outdated`);
+        if (orphanCount > 0) sp.push(`${orphanCount} orphaned`);
+        parts.push(sp.length > 1 ? `${sp[0]} (${sp.slice(1).join(", ")})` : sp[0]);
+      }
+      if (existingAgents.length > 0) {
+        parts.push(`${existingAgents.length} agents`);
+      }
+      console.log(`  ⚠ ${platform}: found ${parts.join(", ")}`);
+      toRemove.push({ platform, dirs, existingSkills, existingAgents });
     }
   }
 
   if (toRemove.length > 0) {
-    const answer = await prompt("  Overwrite existing skills? [y/N]: ");
+    const answer = await prompt("  Overwrite existing? [y/N]: ");
     if (answer.toLowerCase() !== "y") {
       console.log("  Aborted.");
       process.exit(0);
     }
-    for (const { skillsDir, existing } of toRemove) {
-      for (const { skill } of existing) {
-        fs.rmSync(path.join(skillsDir, skill), { recursive: true });
+    for (const { platform, dirs, existingSkills, existingAgents } of toRemove) {
+      for (const { name } of existingSkills) {
+        fs.rmSync(path.join(dirs.skills, name), { recursive: true });
+      }
+      for (const { name } of existingAgents) {
+        const ext = platform === "copilot" ? ".agent.md" : ".md";
+        const mdFile = path.join(dirs.agents, name + ext);
+        if (fs.existsSync(mdFile)) fs.rmSync(mdFile);
+        if (platform === "codex") {
+          const tomlFile = path.join(dirs.agents, name + ".toml");
+          if (fs.existsSync(tomlFile)) fs.rmSync(tomlFile);
+        }
       }
     }
   }
 
-  for (const [platform, skillsDir] of Object.entries(platforms)) {
-    let count = 0;
+  for (const [platform, dirs] of Object.entries(targets)) {
+    let skillCount = 0;
     for (const skill of SKILLS) {
       const template = path.join(ROOT, "skills", skill, "SKILL.md");
       if (!fs.existsSync(template)) continue;
-
       const compiled = compileSkill(template, platform);
-      const outDir = path.join(skillsDir, skill);
+      const outDir = path.join(dirs.skills, skill);
       fs.mkdirSync(outDir, { recursive: true });
       fs.writeFileSync(path.join(outDir, "SKILL.md"), compiled);
-      count++;
+      skillCount++;
     }
-    console.log(`  ✓ ${platform}: ${count} skills → ${skillsDir}/`);
+
+    let agentCount = 0;
+    for (const agent of AGENTS) {
+      const src = path.join(ROOT, "agents", agent, "agent.md");
+      if (!fs.existsSync(src)) continue;
+      fs.mkdirSync(dirs.agents, { recursive: true });
+      const files = compileAgent(agent, platform);
+      for (const { filename, content } of files) {
+        fs.writeFileSync(path.join(dirs.agents, filename), content);
+      }
+      agentCount++;
+    }
+
+    const parts = [`${skillCount} skills`];
+    if (agentCount > 0) parts.push(`${agentCount} agents`);
+    console.log(`  ✓ ${platform}: ${parts.join(" + ")} installed`);
   }
 }
 
 function uninstall(only) {
-  const platforms = only ? { [only]: PLATFORMS[only] } : PLATFORMS;
+  const targets = only ? { [only]: PLATFORMS[only] } : PLATFORMS;
 
   if (only && !PLATFORMS[only]) {
     console.error(`Unknown platform: ${only}. Use: copilot, codex, claude`);
     process.exit(1);
   }
 
-  for (const [platform, skillsDir] of Object.entries(platforms)) {
-    let count = 0;
+  for (const [platform, dirs] of Object.entries(targets)) {
+    let skillCount = 0;
     for (const skill of SKILLS) {
-      const dir = path.join(skillsDir, skill);
+      const dir = path.join(dirs.skills, skill);
       if (fs.existsSync(dir)) {
         fs.rmSync(dir, { recursive: true });
-        count++;
+        skillCount++;
       }
     }
-    if (count > 0) {
-      console.log(`  ✓ ${platform}: ${count} skills removed from ${skillsDir}/`);
+
+    let agentCount = 0;
+    for (const agent of AGENTS) {
+      const ext = platform === "copilot" ? ".agent.md" : ".md";
+      const mdFile = path.join(dirs.agents, agent + ext);
+      if (fs.existsSync(mdFile)) {
+        fs.rmSync(mdFile);
+        agentCount++;
+      }
+      if (platform === "codex") {
+        const tomlFile = path.join(dirs.agents, agent + ".toml");
+        if (fs.existsSync(tomlFile)) fs.rmSync(tomlFile);
+      }
+    }
+
+    if (skillCount > 0 || agentCount > 0) {
+      const parts = [];
+      if (skillCount > 0) parts.push(`${skillCount} skills`);
+      if (agentCount > 0) parts.push(`${agentCount} agents`);
+      console.log(`  ✓ ${platform}: ${parts.join(" + ")} removed`);
     }
   }
 }
 
 function usage() {
-  console.log(`old-sdd — Spec-driven development skills for AI agents
+  console.log(`old-sdd — Spec-driven development skills & agents for AI coding assistants
 
 Usage:
-  npx old-sdd install              Install skills (interactive platform selection)
-  npx old-sdd install <platform>   Install skills for a specific platform
-  npx old-sdd uninstall [platform] Remove all osd-* skills
-  npx old-sdd list                 Show installed skills
+  npx old-sdd install              Install skills & agents (interactive)
+  npx old-sdd install <platform>   Install for a specific platform
+  npx old-sdd uninstall [platform] Remove all osd-* skills & agents
+  npx old-sdd list                 Show installed skills & agents
 
 Platforms: copilot, codex, claude`);
 }
 
 function list() {
   let found = false;
-  for (const [platform, skillsDir] of Object.entries(PLATFORMS)) {
-    const installed = SKILLS.filter((s) =>
-      fs.existsSync(path.join(skillsDir, s, "SKILL.md"))
+  for (const [platform, dirs] of Object.entries(PLATFORMS)) {
+    const installedSkills = SKILLS.filter((s) =>
+      fs.existsSync(path.join(dirs.skills, s, "SKILL.md"))
     );
-    if (installed.length > 0) {
+
+    const ext = platform === "copilot" ? ".agent.md" : ".md";
+    const installedAgents = AGENTS.filter((a) =>
+      fs.existsSync(path.join(dirs.agents, a + ext))
+    );
+
+    if (installedSkills.length > 0 || installedAgents.length > 0) {
       found = true;
-      console.log(`${platform}: ${installed.length} skills in ${skillsDir}/`);
-      installed.forEach((s) => console.log(`  ${s}`));
+      const parts = [];
+      if (installedSkills.length > 0) parts.push(`${installedSkills.length} skills`);
+      if (installedAgents.length > 0) parts.push(`${installedAgents.length} agents`);
+      console.log(`${platform}: ${parts.join(" + ")}`);
+      installedSkills.forEach((s) => console.log(`  skill: ${s}`));
+      installedAgents.forEach((a) => console.log(`  agent: ${a}`));
     }
   }
   if (!found) {
-    console.log("No old-sdd skills installed.");
+    console.log("No old-sdd skills or agents installed.");
   }
 }
 
@@ -231,7 +357,7 @@ const platform = args[1];
       console.log("\nDone! Restart your agent CLI to load the new skills.");
       break;
     case "uninstall":
-      console.log("Removing old-sdd skills...\n");
+      console.log("Removing old-sdd skills & agents...\n");
       uninstall(platform);
       console.log("\nDone!");
       break;
