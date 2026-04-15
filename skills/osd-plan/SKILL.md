@@ -5,15 +5,13 @@ description: "Use after a spec is written to break requirements into executable 
 
 # Plan Phase
 
-Break a spec into executable tasks. Needs a spec — check session context, then `docs/specs/`, then `docs/agents/specs/` (or `docs/superpowers/specs/`), then ask the user. If no spec exists, suggest the user activate skill `/osd-spec` first.
+Break a spec into executable tasks. Needs a spec — check session context, then search `docs/` for existing specs, then ask the user. If no spec exists, suggest the user activate skill `/osd-spec` first.
 
 Break the spec into executable tasks.
 
 ## Plan Location
 
-Save the plan next to the spec:
-- If the spec is in the project (e.g., `docs/specs/`) → save `plan.md` in the same folder as the spec
-- If the spec is in `/tmp/osd-<topic>/` → save to `/tmp/osd-<topic>/plan.md`
+Find where the project stores docs: search `docs/` for existing plans or specs. If found, use the same structure (e.g., `docs/superpowers/plans/`). If `docs/superpowers/` exists, use `docs/superpowers/plans/`. Default: `docs/agents/plans/YYYY-MM-DD-<topic>.md`. If the spec is in `/tmp/osd-<topic>/`, save to `/tmp/osd-<topic>/plan.md`.
 
 ## Plan Format
 
