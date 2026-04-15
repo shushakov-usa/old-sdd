@@ -15,6 +15,16 @@ Write tests alongside code. Prefer test-first: write a failing test, then make i
 
 Not everything needs a test (trivial config, one-line wrappers), but when in doubt — write the test.
 
+## Code Quality
+
+Write clean, readable code:
+- Small, focused functions — if a function does multiple things, split it
+- No duplication — extract shared logic
+- Clear naming — names should explain intent without comments
+- Match existing project conventions — don't introduce new patterns unnecessarily
+
+If implementing a task would create duplication or a bad architectural decision, refactor the existing code to accommodate the change cleanly. If the refactor is significant, ask the user first.
+
 Execute the plan. This is where code gets written.
 
 ## Process
