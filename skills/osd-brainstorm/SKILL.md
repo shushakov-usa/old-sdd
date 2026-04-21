@@ -26,6 +26,8 @@ If the user does not yet know what they want, do not wait for a crisp request. H
 
 Drive the conversation with many focused questions. Prefer depth over speed when the task is vague, risky, expensive, user-facing, or architecturally important.
 
+Before asking deep or decision-forcing questions, investigate enough context to understand the task shape, the likely source of risk, and which trade-offs are actually relevant. Gather just enough context to ask sharper questions and give stronger recommendations.
+
 Each question must do at least one of these:
 
 - reduce uncertainty
@@ -42,41 +44,17 @@ Be skeptical in a useful way:
 
 Do not flatter. Do not rubber-stamp. Push until the problem space is sharp.
 
-## Working Note
+## Interaction Mode
 
-Maintain a working note at `/tmp/osd-brainstorm-<topic>/brainstorm.md`.
+This skill is conversational by default. Do not create files, notes, specs, or other artifacts unless the user explicitly asks for them.
 
-Create it early with this structure:
+Keep the investigation in the conversation itself:
 
-```markdown
-# <Topic>
-
-## Goal
-
-## Problem Framing
-
-## Context
-
-## Constraints
-
-## Unknowns
-
-## Risks
-
-## Edge Cases
-
-## Assumptions To Verify
-
-## Decisions So Far
-
-## Open Questions
-
-## Success Criteria
-```
-
-Update the note after each meaningful answer batch so the conversation survives context compaction.
-
-Do not force every section if the task is tiny, but keep `Unknowns`, `Risks`, `Open Questions`, and `Success Criteria` current.
+- clarify the goal
+- find the real problem
+- surface constraints and risks
+- identify assumptions to verify
+- keep track of unresolved questions
 
 ## Mode Detection
 
@@ -101,6 +79,10 @@ Clarity level:
 Ask in batches when questions are independent. Ask sequentially when the next question depends on the prior answer.
 
 Favor concrete, decision-forcing questions over generic prompts. Force precision whenever the user says things like "simple", "fast", "scalable", or "intuitive".
+
+When offering answer options, use them to accelerate clarification, not to constrain thought. Present options only when the choice is real and useful.
+
+When presenting options, mark the strongest one as recommended when you have an informed opinion.
 
 Do not ask obvious questions when the answer is already explicit from the user's message or prior context. Do not repeat answered questions unless new information creates a real ambiguity. Skip low-signal prompts that only restate what the user already knows.
 
@@ -195,6 +177,14 @@ Do not automatically switch to another skill. Only propose the next move.
 
 If the task is large, cross-cutting, ambiguous, high-risk, or clearly heading toward implementation, recommend `$osd-spec` so the discovered details become a structured specification.
 
+<!-- platform: copilot -->
+When asking questions, use `ask_user` with choices when the platform supports it. Batch independent questions together. For dependent questions, wait for the answer first.
+<!-- /platform: copilot -->
+
+<!-- platform: claude -->
+When asking questions, use `AskUserQuestion` with choices when the platform supports it. Batch independent questions together. For dependent questions, wait for the answer first.
+<!-- /platform: claude -->
+
 <!-- platform: codex -->
-In text-only mode, ask one question at a time unless the user explicitly wants a batch. If plan-mode question tools exist, batch only independent questions.
+When asking questions in plan mode, use `ask_user_question` with choices. In text-only mode, ask one question at a time unless the user explicitly wants a batch. Batch only independent questions.
 <!-- /platform: codex -->
