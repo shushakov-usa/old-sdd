@@ -7,6 +7,7 @@ const readline = require("readline");
 
 const SKILLS = [
   "osd-build",
+  "osd-brainstorm",
   "osd-implement",
   "osd-plan",
   "osd-review",
