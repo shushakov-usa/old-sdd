@@ -1,0 +1,4 @@
+interface:
+  display_name: "Brainstorm"
+  short_description: "Deeply interrogate a task before building"
+  default_prompt: "Use $osd-brainstorm to pressure-test this task and surface hidden risks, constraints, and missing details."
