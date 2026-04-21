@@ -178,11 +178,11 @@ Do not automatically switch to another skill. Only propose the next move.
 If the task is large, cross-cutting, ambiguous, high-risk, or clearly heading toward implementation, recommend `$osd-spec` so the discovered details become a structured specification.
 
 <!-- platform: copilot -->
-When asking questions, use `ask_user` with choices when the platform supports it. Batch independent questions together. For dependent questions, wait for the answer first.
+When asking questions, use `ask_user` with choices. Batch independent questions together. For dependent questions, wait for the answer first.
 <!-- /platform: copilot -->
 
 <!-- platform: claude -->
-When asking questions, use `AskUserQuestion` with choices when the platform supports it. Batch independent questions together. For dependent questions, wait for the answer first.
+When asking questions, always use `AskUserQuestion` with choices. Do not ask questions in plain text output. Batch independent questions together. For dependent questions, wait for the answer first.
 <!-- /platform: claude -->
 
 <!-- platform: codex -->
